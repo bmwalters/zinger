@@ -1,0 +1,1 @@
+"Sign"{	"Name"		"Sign"	"Width"		"512"	"Height"	"512"}

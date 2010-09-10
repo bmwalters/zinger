@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "zinger/models/tree/wood"
+	"$basetexturetransform" "center .5 .5 scale 2 4 rotate 0 translate 0 0"
+}

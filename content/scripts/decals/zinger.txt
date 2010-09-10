@@ -1,0 +1,17 @@
+"Zinger.Scorch"
+{
+
+	"zinger/decals/scorch1"		"1"
+	"zinger/decals/scorch2"		"1"
+	"zinger/decals/scorch3"		"1"
+	"zinger/decals/scorch4"		"1"
+	"zinger/decals/scorch5"		"1"
+	"zinger/decals/scorch6"		"1"
+	"zinger/decals/scorch7"		"1"
+	"zinger/decals/scorch8"		"1"
+	"zinger/decals/scorch9"		"1"
+	"zinger/decals/scorch10"	"1"
+	"zinger/decals/scorch11"	"1"
+	"zinger/decals/scorch12"	"1"
+
+}

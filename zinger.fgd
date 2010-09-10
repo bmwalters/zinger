@@ -1,0 +1,177 @@
+
+@include "base.fgd"
+
+//----------------------------------------
+//	Cup
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/cup.mdl") = zing_cup : "Cup"
+[
+	hole(integer): "Hole" : 0 : "The hole number this tee belongs to."
+]
+
+
+//----------------------------------------
+//	Tee Red
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/tee.mdl") = zing_tee_red : "Tee Red"
+[
+	hole(integer): "Hole" : 0 : "The hole number this tee belongs to."
+]
+
+//----------------------------------------
+//	Tee Blue
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/tee.mdl") = zing_tee_blue : "Tee Blue"
+[
+	hole(integer): "Hole" : 0 : "The hole number this tee belongs to."
+]
+
+
+//----------------------------------------
+//	Air Ring
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/ring.mdl") = zing_ring_air : "Ring Air"
+[
+	hole(integer): "Hole" : 0 : "The hole number this ring belongs to."
+]
+
+//----------------------------------------
+//	Ring
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/arch.mdl") = zing_ring : "Ring"
+[
+	hole(integer): "Hole" : 0 : "The hole number this ring belongs to."
+]
+
+
+//----------------------------------------
+//	Information
+//----------------------------------------
+@PointClass base(Angles,Targetname) = zing_info : "Information for zinger"
+[
+	spawnflags(flags) =
+	[
+		1 : "Skybox" : 0
+	]
+]
+
+
+//----------------------------------------
+//	Supply node
+//----------------------------------------
+@PointClass base(Angles,Targetname) sphere(SpawnRadius) = zing_supply_node : "Supply zone for spawning"
+[
+	hole(integer): "Hole" : 0 : "The hole number this node belongs to."
+	SpawnRadius(float) : "Spawn Radius" : 750 : "The maxium radius that the item can spawn within."
+]
+
+
+//----------------------------------------
+//	Jump Pad
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/pad.mdl") = zing_jump_pad : "Jump Pad"
+[
+	hole(integer): "Hole" : 0 : "The hole number this jump pad belongs to."
+	destination(target_destination): "Destination" : "" : "The destination info_target for this jump pad"
+	height(float) : "Jump Apex" : 128 : "The apex of the jump."
+]
+
+
+//----------------------------------------
+//	Tele Pad
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/pad.mdl") = zing_tele_pad : "Teleport Pad"
+[
+	hole(integer): "Hole" : 0 : "The hole number this tele pad belongs to."
+	destination(target_destination): "Destination" : "" : "The destination info_target for this tele pad"
+	
+	spawnflags(flags) =
+	[
+		1 : "Clear Velocity" : 0
+	]
+]
+
+
+//----------------------------------------
+//	Shrub Large
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/shrub_large.mdl") = zing_shrub_large : "Large Shrub"
+[
+]
+
+//----------------------------------------
+//	Shrub Medium
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/shrub_medium.mdl") = zing_shrub_medium : "Medium Shrub"
+[
+]
+
+//----------------------------------------
+//	Shrub Small
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/shrub_small.mdl") = zing_shrub_small : "Small Shrub"
+[
+]
+
+
+//----------------------------------------
+//	Tree Large
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/tree_large.mdl") = zing_tree_large : "Large Tree"
+[
+]
+
+//----------------------------------------
+//	Tree Medium
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/tree_medium.mdl") = zing_tree_medium : "Medium Tree"
+[
+]
+
+//----------------------------------------
+//	Tree Small
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/tree_small.mdl") = zing_tree_small : "Small Tree"
+[
+]
+
+
+//----------------------------------------
+//	Shroom
+//----------------------------------------
+@PointClass base(Angles,Targetname) studio("models/zinger/mushroom.mdl") = zing_shroom : "Shroom"
+[
+]
+
+//----------------------------------------
+//	Sign
+//----------------------------------------
+@PointClass base(Angles) studio("models/zinger/sign.mdl") = zing_sign : "Sign"
+[
+	line1(string): "Line #1" : "" : ""
+	line2(string): "Line #2" : "Zinger!" : ""
+	line3(string): "Line #3" : "" : ""
+	
+	line1color(color255): "Line #1 Color" : "0 0 0 255" : ""
+	line2color(color255): "Line #2 Color" : "0 0 0 255" : ""
+	line3color(color255): "Line #3 Color" : "0 0 0 255" : ""
+]
+
+//----------------------------------------
+//	Cloud
+//----------------------------------------
+@PointClass base(Targetname) = zing_cloud : "Cloud"
+[
+	destination(target_destination): "Path" : "" : "The first path_track that makes up this cloud"
+]
+
+//----------------------------------------
+//	OOB
+//----------------------------------------
+@SolidClass base(Targetname) = trigger_oob : "Out of Bounds"
+[
+	spawnflags(flags) =
+	[
+		1 : "Treat as water" : 0
+	]
+]

@@ -1,0 +1,20 @@
+"OverviewPrev"
+{
+	"Name"		"OverviewPrev"
+	"Width"		"128"
+	"Height"	"128"
+}
+
+"OverviewCur"
+{
+	"Name"		"OverviewCur"
+	"Width"		"128"
+	"Height"	"128"
+}
+
+"OverviewNext"
+{
+	"Name"		"OverviewNext"
+	"Width"		"128"
+	"Height"	"128"
+}

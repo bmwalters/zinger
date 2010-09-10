@@ -1,0 +1,6 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "zinger/models/tree/leaf"
+	"$nocull" 1
+	"$alphatest" 1
+}

@@ -1,0 +1,7 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "zinger/cliff_face"
+	"$normalmap" "zinger/cliff_face_normal"
+	"$surfaceprop" "Rock"
+	"%keywords" "zinger"
+}

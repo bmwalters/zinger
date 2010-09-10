@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "zinger/models/blowgun/bluefeather"
+	"$nocull" 1
+}
