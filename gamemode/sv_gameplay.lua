@@ -361,8 +361,8 @@ function GM:Cleanup()
 	
 	end
 	
-	// remove all decals
-	umsg.Start( "ClearDecals" );
+	// clean up the course clientside
+	umsg.Start( "CleanUp" );
 	umsg.End();
 	
 end
