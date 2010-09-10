@@ -1,4 +1,9 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-	"$basetexture" "zinger/models/tree/rings"
+	"$basetexture"		"zinger/models/tree/rings"
+	
+	"$surfaceprop"		"wood"
+	"%keywords"			"zinger"
+	
+	"$model"			"1"
 }

@@ -5,7 +5,7 @@ include( 'shared.lua' );
 // setup
 ENT.RenderGroup = RENDERGROUP_TRANSLUCENT;
 
-local MaterialPuff = Material( "zinger/puff" );
+local MaterialPuff = Material( "zinger/particles/puff" );
 
 local CloudConVar = CreateConVar( "cl_zing_clouds", "1" );
 

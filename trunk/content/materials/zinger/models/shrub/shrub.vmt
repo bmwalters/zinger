@@ -1,4 +1,9 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-	"$basetexture" "zinger/models/shrub/shrub"
+	"$basetexture"		"zinger/models/shrub/shrub"
+	
+	"$surfaceprop"		"grass"
+	"%keywords"			"zinger"
+	
+	"$model"			"1"
 }

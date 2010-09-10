@@ -1,7 +1,9 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-
-	"$basetexture" "zinger/models/bomb/fuse"
-	"$model" "1"
+	"$basetexture"		"zinger/models/bomb/fuse"
 	
+	"$surfaceprop"		"paper"
+	"%keywords"			"zinger"
+	
+	"$model"			"1"
 }

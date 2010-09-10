@@ -1,4 +1,9 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-	"$basetexture" "zinger/models/tree/orb"
+	"$basetexture"		"zinger/models/tree/orb"
+	
+	"$surfaceprop"		"grass"
+	"%keywords"			"zinger"
+	
+	"$model"			"1"
 }

@@ -1,7 +1,12 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-	"$basetexture" "zinger/models/butterfly/butterfly"
-	"$alphatest" 1
-	"$nocull" 1
-	"$vertexcolor" 1
+	"$basetexture"		"zinger/models/butterfly/butterfly"
+	
+	"$surfaceprop"		"flesh"
+	"%keywords"			"zinger"
+	
+	"$model"			"1"
+	"$alphatest"		"1"
+	"$nocull"			"1"
+	"$vertexcolor"		"1"
 }

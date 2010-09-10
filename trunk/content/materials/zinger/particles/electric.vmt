@@ -1,9 +1,11 @@
 "UnlitGeneric"
 {
-
 	"$basetexture"	"zinger/particles/electric"
-	"$additive"	"1"
+	
+	"$surfaceprop"	"Default"
+	"%keywords"		"zinger"
+	
+	"$additive"		"1"
 	"$vertexalpha"	"1"
 	"$vertexcolor"	"1"
-	
 }

@@ -1,5 +1,10 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-	"$basetexture" "zinger/models/tree/shrub"
-	"$basetexturetransform" "center .5 .5 scale 2 2 rotate 0 translate 0 0"
+	"$basetexture"				"zinger/models/tree/shrub"
+	"$basetexturetransform"		"center .5 .5 scale 2 2 rotate 0 translate 0 0"
+	
+	"$surfaceprop"				"grass"
+	"%keywords"					"zinger"
+	
+	"$model"					"1"
 }

@@ -1,14 +1,16 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-
-	"$baseTexture" "zinger/models/crate/crate"
-	"$surfaceprop" "metal"
-    	"$envmap" "env_cubemap"
-   	"$envmapcontrast" 0.7
-    	"$envmaptint" "[.01 .01 .01]"
-	"$nocull" "1"
-	"$bumpmap" "zinger/models/crate/crate_nrm"
-	"$normalmapalphaenvmapmask" "1"
-	"$model" "1"
+	"$basetexture"				"zinger/models/crate/crate"
+	"$bumpmap"					"zinger/models/crate/crate_nrm"
+	"$normalmapalphaenvmapmask"	"1"
 	
+    "$envmap"					"env_cubemap"
+   	"$envmapcontrast"			"0.7"
+    "$envmaptint"				"[.01 .01 .01]"
+	
+	"$surfaceprop"				"wood"
+	"%keywords"					"zinger"
+	
+	"$nocull"					"1"
+	"$model"					"1"
 }

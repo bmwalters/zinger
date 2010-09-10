@@ -444,7 +444,7 @@ function GM:GUIMouseWheeled( delta )
 end
 
 
-local BlackModel = Material( "zinger/blackmodel" );
+local BlackModel = Material( "zinger/models/black" );
 local BlackModelSimple = Material( "black_outline" );
 
 

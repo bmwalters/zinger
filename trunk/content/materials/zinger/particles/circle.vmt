@@ -1,10 +1,11 @@
-"UnlitGeneric"
+"SpriteCard"
 {
-	"$basetexture"	"zinger/sky/sun"
+	"$basetexture"	"zinger/particles/circle"
 	
 	"$surfaceprop"	"Default"
 	"%keywords"		"zinger"
 	
 	"$vertexalpha"	"1"
 	"$vertexcolor"	"1"
+	"$translucent"	"1"
 }

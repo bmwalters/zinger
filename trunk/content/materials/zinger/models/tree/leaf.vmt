@@ -1,6 +1,11 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-	"$basetexture" "zinger/models/tree/leaf"
-	"$nocull" 1
-	"$alphatest" 1
+	"$basetexture"		"zinger/models/tree/leaf"
+	
+	"$surfaceprop"		"grass"
+	"%keywords"			"zinger"
+	
+	"$model"			"1"
+	"$alphatest"		"1"
+	"$nocull"			"1"
 }

@@ -1,7 +1,7 @@
 
 // materials
 local MaterialHorizon = Material( "zinger/sky/sky" );
-local MaterialPuff = Material( "zinger/puff" );
+local MaterialPuff = Material( "zinger/particles/puff" );
 local MaterialSun = Material( "zinger/sky/sun" );
 local MaterialSunBurst = Material( "zinger/sky/sunburst" );
 local MaterialMoon = Material( "zinger/sky/moon" );
