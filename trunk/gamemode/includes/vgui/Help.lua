@@ -243,7 +243,7 @@ function PANEL:LoadHelpFile( f )
 
 	local d = file.Read( "zinger/help/" .. f );
 	local text = string.Explode( "\n", d );
-	local category, index, title = unpack( string.Explode( ":", text[ 1 ] ) );
+	local category, title, index = unpack( string.Explode( ":", text[ 1 ] ) );
 	index = tonumber( index );
 	table.remove( text, 1 );
 	text = table.concat( text, "\n" );

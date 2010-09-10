@@ -158,10 +158,11 @@ function AddHint( pos, topic, parent )
 	// give it an index
 	hint.Index = #HintEnts;
 	
-	// if a parent was supplied, parent it
-	if ( parent ) then
+	// if a parent was supplied, save the offset
+	if ( parent && IsValid( parent ) ) then
 	
-		hint:SetParent( parent );
+		hint.Parent = parent;
+		hint.ParentOffset = pos - parent:GetPos();
 		
 	end
 	
@@ -221,6 +222,26 @@ function DrawHints()
 		
 			table.remove( HintEnts, i );
 			
+		elseif ( hint.Parent ) then
+		
+			// validate the parent
+			if ( !IsValid( hint.Parent ) ) then
+			
+				if ( !hint.Clicked ) then
+				
+					// enable the hint again
+					SuppressedHints[ hint.Topic ] = nil;
+				
+				end
+			
+				table.remove( HintEnts, i );			
+				
+			else
+				
+				hint:SetPos( hint.Parent:GetPos() + hint.ParentOffset );
+			
+			end
+		
 		end
 		
 	end
