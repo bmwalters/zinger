@@ -175,3 +175,10 @@
 		1 : "Treat as water" : 0
 	]
 ]
+
+//----------------------------------------
+//	Condition
+//----------------------------------------
+@SolidClass base(Targetname) = trigger_condition : "Apply condition to the ball."
+[
+]
