@@ -1,0 +1,7 @@
+"LightmappedGeneric"
+{
+	"$basetexture" "zinger/lightgreen"
+	"$surfaceprop" "Water"
+	"%keywords" "zinger"
+	"%tooltexture" "zinger/tools/lightgreen_oob"
+}

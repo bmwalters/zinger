@@ -1,0 +1,7 @@
+All models found within this folder and any
+subfolders have been released under the
+"Create Commons Attribution 3.0" license
+
+http://creativecommons.org/licenses/by/3.0/us/
+
+They have been created from scratch.

@@ -1,0 +1,9 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "zinger/models/cup/flag"
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[0.25 0.25 0.25]"
+	"$vertexcolor" "1"
+	"$model" "1"
+	"$nocull" "1"
+}

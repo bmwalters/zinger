@@ -1,0 +1,5 @@
+"SpriteCard"
+{
+	"$basetexture" "zinger/particles/grassblade"
+	"$vertexalpha" "1"
+}

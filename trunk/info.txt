@@ -1,0 +1,26 @@
+"Gamemode"
+{
+	"name"		"Zinger!"
+	"version"	"1"
+
+	"author_name"	"Arcadium Software"
+	"author_email"	""
+	"author_url"	"www.the-arcadium.com"
+	
+	"icon"		""
+	"info"		""
+	"hide"		"0"
+
+	"fretta_maps"
+	{
+		"1"	"^zing_"
+	}
+
+	"mappattern"
+	{
+		"1"	"^zing_"
+	}
+
+	"selectable"	"1"
+	"description"	"Cartoon battle golf"
+}

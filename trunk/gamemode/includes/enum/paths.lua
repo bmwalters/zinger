@@ -1,0 +1,1 @@
+// defined pathsPATH_VGUI 						= PATH_BASE .. "includes/vgui/";PATH_ITEMS						= PATH_BASE .. "includes/items/";PATH_RULES						= PATH_BASE .. "includes/rules/";PATH_MODULES					= PATH_BASE .. "includes/modules/";PATH_CONDITIONS					= PATH_BASE .. "includes/conditions/";

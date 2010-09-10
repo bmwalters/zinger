@@ -1,0 +1,7 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "zinger/sky/sky"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+	"$model" 1
+}

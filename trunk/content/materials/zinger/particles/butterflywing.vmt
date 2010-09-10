@@ -1,0 +1,7 @@
+"SpriteCard"
+{
+	"$basetexture" "zinger/particles/butterflywing"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+	"$translucent" 1
+}

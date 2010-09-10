@@ -1,0 +1,12 @@
+"LightmappedGeneric"
+{
+	"$basetexture"	"zinger\decals\scorch"
+	"$decal"		"1"
+	"$decalscale"	"0.55"
+	"$translucent"	"1"
+	"$alpha" "0.95"
+	"$vertexalpha" "1"
+	"$basetexturetransform" "center .5 .5 scale 1 1 rotate 270 translate 0 0"
+
+	"$modelmaterial"	"zinger\decals\scorch10_model"
+}

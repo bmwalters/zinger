@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "zinger/hud/elements/strokecounter"
+	"$vertexalpha" "1"
+	"$vertexcolor" "1"
+	"$ignorez" "1"
+}

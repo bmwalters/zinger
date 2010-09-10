@@ -1,0 +1,7 @@
+"SpriteCard"
+{
+	"$basetexture" "zinger/particles/shellbrass"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+	"$translucent" 1
+}
