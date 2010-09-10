@@ -1,17 +1,15 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
+	"$basetexture"				"zinger/models/uzi/uzi"
+	"$bumpmap"					"zinger/models/uzi/uzi_nrm"
+	"$normalmapalphaenvmapmask"	"1"
+	
+	"$envmap"					"env_cubemap"
+	"$envmapcontrast"			"0.7"
+	"$envmaptint"				"[.01 .01 .01]"
 
-	"$basetexture" "zinger/models/uzi/uzi"
+	"$surfaceprop"				"metal"
+	"%keywords"					"zinger"
 	
-	"$surfaceprop" "metal"
-	
-	"$envmap" "env_cubemap"
-	"$envmapcontrast" "0.7"
-	"$envmaptint" "[.01 .01 .01]"
-
-	"$bumpmap" "zinger/models/uzi/uzi_nrm"
-	"$normalmapalphaenvmapmask" "1"
-	
-	"$model" "1"
-	
+	"$model"					"1"
 }

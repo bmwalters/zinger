@@ -1,6 +1,12 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-	"$basetexture" "zinger/models/pad/pad"
-	"$selfillum" "1"
-	"$selfillummask" "zinger/models/pad/pad_illum"
+	"$basetexture"		"zinger/models/pad/pad"
+	
+	"$selfillum"		"1"
+	"$selfillummask"	"zinger/models/pad/pad_illum"
+	
+	"$surfaceprop"		"metal"
+	"%keywords"			"zinger"
+	
+	"$model"			"1"
 }

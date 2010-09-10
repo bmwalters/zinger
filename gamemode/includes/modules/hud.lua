@@ -14,7 +14,7 @@ local HintEnts = {};
 local SurpressedHints = {};
 local HintDelay = 0;
 
-local BlackModel = Material( "zinger/blackmodel" );
+local BlackModel = Material( "zinger/models/black" );
 
 
 /*------------------------------------

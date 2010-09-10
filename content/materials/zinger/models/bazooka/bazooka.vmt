@@ -1,7 +1,9 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-
-	"$basetexture" "zinger/models/bazooka/bazooka"
-	"$model" "1"
+	"$basetexture"		"zinger/models/bazooka/bazooka"
 	
+	"$surfaceprop"		"metal"
+	"%keywords"			"zinger"
+	
+	"$model"			"1"
 }

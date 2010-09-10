@@ -3,7 +3,7 @@
 include( 'shared.lua' );
 
 // materials
-local BlackModel = Material( "zinger/blackmodel" );
+local BlackModel = Material( "zinger/models/black" );
 local BlackModelSimple = Material( "black_outline" );
 local White = Material( "vgui/white" );
 local Circle = Material( "zinger/hud/circle" );

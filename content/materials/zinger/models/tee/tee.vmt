@@ -1,7 +1,9 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-
-	"$basetexture" "zinger/models/tee/tee"
-	"$model" "1"
+	"$basetexture"		"zinger/models/tee/tee"
 	
+	"$surfaceprop"		"plastic"
+	"%keywords"			"zinger"
+	
+	"$model"			"1"
 }

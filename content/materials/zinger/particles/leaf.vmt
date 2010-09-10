@@ -1,5 +1,9 @@
 "SpriteCard"
 {
-	"$basetexture" "zinger/particles/leaf"
-	"$vertexalpha" "1"
+	"$basetexture"	"zinger/particles/leaf"
+	
+	"$surfaceprop"	"Default"
+	"%keywords"		"zinger"
+	
+	"$vertexalpha"	"1"
 }

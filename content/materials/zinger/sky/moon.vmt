@@ -1,6 +1,10 @@
 "UnlitGeneric"
 {
-	"$basetexture" "zinger/sky/moon"
-	"$vertexalpha" 1
-	"$vertexcolor" 1
+	"$basetexture"	"zinger/sky/moon"
+	
+	"$surfaceprop"	"Default"
+	"%keywords"		"zinger"
+	
+	"$vertexalpha"	"1"
+	"$vertexcolor"	"1"
 }

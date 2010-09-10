@@ -1,4 +1,9 @@
-"VertexlitGeneric"
+"VertexLitGeneric"
 {
-	"$basetexture" "zinger/models/radio/radio"
+	"$basetexture"		"zinger/models/radio/radio"
+	
+	"$surfaceprop"		"plastic"
+	"%keywords"			"zinger"
+	
+	"$model"			"1"
 }

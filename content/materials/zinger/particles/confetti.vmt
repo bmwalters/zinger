@@ -1,7 +1,11 @@
 "SpriteCard"
 {
-	"$basetexture" "particles/balloon_bit"
-	"$vertexalpha" 1
-	"$vertexcolor" 1
-	"$translucent" 1
+	"$basetexture"	"particles/balloon_bit"
+	
+	"$surfaceprop"	"Default"
+	"%keywords"		"zinger"
+	
+	"$vertexalpha"	"1"
+	"$vertexcolor"	"1"
+	"$translucent"	"1"
 }
