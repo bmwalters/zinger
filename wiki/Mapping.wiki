@@ -1,9 +1,9 @@
-#summary Mapping guide Best Practices
+#summary Mapping Best Practices
 #labels Phase-Implementation
 
 = Introduction =
 
-Zinger maps should be and maintain the cartoony feel of the game. Over complicated brushes and textures will only drown out the comical feel seem out of place.
+Zinger maps should be simple and maintain the cartoony feel of the game. Over complicated brushes and textures will only drown out the comical feel seem out of place.
 
 
 = Details =
