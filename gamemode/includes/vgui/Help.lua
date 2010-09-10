@@ -18,20 +18,17 @@ function PANEL:Init()
 	self:SetSize( 512, 512 );
 	self:Center();
 	
-	// create 3D butterfly
-	self.Butterfly = vgui.Create( "3DIcon", self );
-	self.Butterfly:SetSize( 200, 200 );
-	self.Butterfly:SetPos( 7, -45 );
-	self.Butterfly:SetModel( "models/zinger/butterfly.mdl" );
-	self.Butterfly:SetAngles( Angle( -45, 120, 10 ) );
-	self.Butterfly:SetViewDistance( 35 );
-	//self.Butterfly:SetOffset( Vector( 0, 0, -10 ) );
-	self.Butterfly.Entity:SetColor( 255, 0, 255, 255 );
-	self.Butterfly:SetOutline( 0 );
-	self.Butterfly:SetAnimationSpeed( 1.0 );
-	self.Butterfly.Run = function( icon )
+	// create 3D help icon
+	self.HelpIcon = vgui.Create( "3DIcon", self );
+	self.HelpIcon:SetSize( 200, 200 );
+	self.HelpIcon:SetPos( 7, -45 );
+	self.HelpIcon:SetModel( Model( "models/zinger/help.mdl" ) );
+	self.HelpIcon:SetAngles( Angle( 0, 0, 20 ) );
+	self.HelpIcon:SetViewDistance( 60 );
+	self.HelpIcon:SetOutline( 1.08 );
+	self.HelpIcon.Run = function( icon )
 	
-		//icon.Entity:SetAngles( icon.Entity:GetAngles() + Angle( 0, FrameTime() * 10, 0 ) );
+		icon.Entity:SetAngles( icon.Entity:GetAngles() + Angle( 0, FrameTime() * 20, 0 ) );
 	
 	end
 	

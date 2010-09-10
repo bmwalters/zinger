@@ -24,8 +24,8 @@ function PANEL:Init()
 	// create 3D ball
 	self.Ball = vgui.Create( "3DIcon", self );
 	self.Ball:SetSize( 200, 200 );
-	self.Ball:SetPos( 7, -45 );
-	self.Ball:SetModel( "models/zinger/ball.mdl" );
+	self.Ball:SetPos( 0, -45 );
+	self.Ball:SetModel( Model( "models/zinger/ball.mdl" ) );
 	self.Ball:SetAngles( Angle( 0, 0, 20 ) );
 	self.Ball:SetViewDistance( 25 );
 	self.Ball:SetOutline( 1.07 );
