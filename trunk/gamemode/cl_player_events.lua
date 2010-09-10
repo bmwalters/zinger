@@ -10,14 +10,15 @@ end
 
 
 /*------------------------------------
-	ClearDecals()
+	CleanUp()
 ------------------------------------*/
-local function ClearDecals( msg )
+local function CleanUp( msg )
 
 	RunConsoleCommand( "r_cleardecals" );
+	hud.RemoveHints();
 	
 end
-usermessage.Hook( "ClearDecals", ClearDecals );
+usermessage.Hook( "CleanUp", CleanUp );
 
 
 /*------------------------------------

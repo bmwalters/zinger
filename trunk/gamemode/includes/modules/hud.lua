@@ -11,9 +11,11 @@ local SelectedElem;
 local EditState = false;
 local Elements = {};
 local HintEnts = {};
-local SurpressedHints = {};
+local SuppressedHints = {};
 local HintDelay = 0;
+local OutlineWidth = Vector() * 1.15;
 
+// materials
 local BlackModel = Material( "zinger/models/black" );
 
 
@@ -22,6 +24,7 @@ local BlackModel = Material( "zinger/models/black" );
 ------------------------------------*/
 function CreateElement( class )
 
+	// create the element and save
 	local elem = vgui.Create( class );
 	table.insert( Elements, elem );
 	
@@ -45,16 +48,21 @@ end
 ------------------------------------*/
 function Select( elem )
 
+	// check if we had an old element selected
 	if ( SelectedElem && SelectedElem:IsValid() ) then
 	
+		// release
 		SelectedElem:MouseCapture( false );
 		
 	end
-
+	
+	// select element
 	SelectedElem = elem;
 	
+	// validate it
 	if ( SelectedElem && SelectedElem:IsValid() ) then
 	
+		// capture mouse
 		SelectedElem:MouseCapture( true );
 		
 	end
@@ -77,13 +85,19 @@ end
 ------------------------------------*/
 local function Toggle( pl, cmd, args )
 
+	// switch the flag
 	EditState = !EditState;
 
+	// loop through all elements
 	for _, e in pairs( Elements ) do
 	
+		// validate the element
 		if ( e && e:IsValid() ) then
 		
+			// toggle mouse input
 			e:SetMouseInputEnabled( EditState );
+			
+			// call the event
 			e:EditChanged( EditState );
 		
 		end
@@ -105,11 +119,11 @@ end
 
 
 /*------------------------------------
-	SurpressHint()
+	SuppressHint()
 ------------------------------------*/
-function SurpressHint( topic )
+function SuppressHint( topic )
 
-	SurpressedHints[ topic ] = true;
+	SuppressedHints[ topic ] = true;
 
 end
 
@@ -129,6 +143,7 @@ end
 ------------------------------------*/
 function AddHint( pos, topic, parent )
 
+	// create hint
 	local hint = ClientsideModel( Model( "models/zinger/help.mdl" ), RENDERGROUP_OPAQUE );
 	hint:SetPos( pos );
 	hint.SpawnTime = CurTime();
@@ -137,10 +152,13 @@ function AddHint( pos, topic, parent )
 	hint.Topic = topic;
 	hint:SetNoDraw( true );
 	
+	// store in table
 	table.insert( HintEnts, hint );
 	
+	// give it an index
 	hint.Index = #HintEnts;
 	
+	// if a parent was supplied, parent it
 	if ( parent ) then
 	
 		hint:SetParent( parent );
@@ -161,16 +179,17 @@ function AddHint( pos, topic, parent )
 	// sparkle
 	ParticleEffectAttach( "Zinger.Help", PATTACH_ABSORIGIN_FOLLOW, hint, -1 );
 	
+	// notification sound
 	SND( "zinger/hintpopup.mp3" );
 	
-	SurpressHint( topic );
+	// suppress the hint and delay the next hint
+	SuppressHint( topic );
 	DelayHints();
 	
 	return hint.Index;
 
 end
 
-local OutlineWidth = Vector() * 1.15;
 
 /*------------------------------------
 	DrawHints()
@@ -178,22 +197,26 @@ local OutlineWidth = Vector() * 1.15;
 function DrawHints()
 	
 	local hint;
-
+	
+	// loop through each hint
 	for i = #HintEnts, 1, -1 do
 	
 		hint = HintEnts[ i ];
 	
+		// if the hint has been clicked, speed up spin velocity
 		if ( hint.Clicked ) then
 		
 			hint.Spin = math.Approach( hint.Spin, 1000, FrameTime() * 500 );
 		
 		end
-	
-		hint:SetAngles( hint:GetAngles() + Angle( 0, FrameTime() * hint.Spin, 0 ) );
-		//hint:SetPos( hint:GetPos() + Vector( 0, 0, math.sin( ( CurTime() - hint.SpawnTime ) ) * ( FrameTime() * 5 ) ) );
 		
+		// spin at chosen velocity
+		hint:SetAngles( hint:GetAngles() + Angle( 0, FrameTime() * hint.Spin, 0 ) );
+		
+		// draw the model
 		DrawModelOutlined( hint, OutlineWidth );
 		
+		// check if we've reached maximum spin velocity and destroy
 		if ( hint.Spin == 1000 ) then
 		
 			table.remove( HintEnts, i );
@@ -210,9 +233,13 @@ end
 ------------------------------------*/
 local function ClickHint( hint )
 
+	// flag as clicked
 	hint.Clicked = true;
+	
+	// notification sound
 	SND( "zinger/hintclicked.mp3" );
 	
+	// display the topic in game
 	GAMEMODE:ShowTopic( hint.Topic );
 	
 	// stop the sparkle
@@ -266,7 +293,7 @@ end
 ------------------------------------*/
 function ClickHints()
 
-	
+	// no hints to click, ignore
 	if ( #HintEnts == 0 ) then
 	
 		return;
@@ -299,11 +326,11 @@ end
 
 
 /*------------------------------------
-	IsHintSurpressed()
+	IsHintSuppressed()
 ------------------------------------*/
-function IsHintSurpressed( topic )
+function IsHintSuppressed( topic )
 
-	return ( SurpressedHints[ topic ] != nil );
+	return ( SuppressedHints[ topic ] != nil );
 
 end
 
@@ -323,3 +350,31 @@ function ShouldHint( topic )
 
 end
 
+
+/*------------------------------------
+	RemoveHints()
+------------------------------------*/
+function RemoveHints()
+
+	local hint;
+	
+	// loop through each active hint
+	for i = 1, #HintEnts do
+	
+		hint = HintEnts[ i ];
+		
+		// make sure it hasn't been clicked
+		if ( !hint.Clicked ) then
+		
+			// unsuppress the hint
+			SuppressedHints[ hint.Topic ] = nil;
+		
+		end
+		
+	end
+	
+	// set a delay and remove all
+	DelayHints();
+	HintEnts = {};
+	
+end
