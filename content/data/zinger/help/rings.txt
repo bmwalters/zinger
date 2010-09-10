@@ -1,2 +1,2 @@
-Gameplay:1:Rings
+Gameplay:Rings:1
 Rings rings rings blah blah fuck.

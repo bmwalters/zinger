@@ -1,2 +1,2 @@
-Basics:5:Camera Control
+Basics:Camera Control:5
 Use your mouse to control your camera. To change your view angles, hold the right mouse button and drag your camera. To move the camera closer or further from your ball, roll your mouse wheel in either direction.

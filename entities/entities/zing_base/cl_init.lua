@@ -9,6 +9,7 @@ local White = Material( "vgui/white" );
 local Circle = Material( "zinger/hud/circle" );
 local RadarPing = Material( "zinger/hud/elements/radarping" );
 
+
 /*------------------------------------
 	Initialize()
 ------------------------------------*/
@@ -39,10 +40,12 @@ end
 ------------------------------------*/
 function ENT:RadarDrawSquare( x, y, size, color, a )
 
+	// draw rect
 	surface.SetDrawColor( color.r, color.g, color.b, color.a );
 	surface.DrawRect( x - ( size * 0.5 ), y - ( size * 0.5 ), size, size );
 	
-	if( a ) then
+	// draw directional line if an angle was supplied
+	if ( a ) then
 	
 		a = math.rad( a );
 
@@ -63,7 +66,8 @@ function ENT:RadarDrawCircle( x, y, size, color, a, material )
 
 	surface.SetDrawColor( color.r, color.g, color.b, color.a );
 
-	if( a ) then
+	// draw directional line if an angle was supplied
+	if ( a ) then
 	
 		local ar = math.rad( a );
 
@@ -75,7 +79,8 @@ function ENT:RadarDrawCircle( x, y, size, color, a, material )
 		a = ( 360 - a ) + 90;
 		
 	end
-
+	
+	// draw circle
 	surface.SetMaterial( material or Circle );
 	surface.DrawTexturedRectRotated( x, y, size, size, a or 0 );
 
@@ -105,6 +110,7 @@ end
 ------------------------------------*/
 function ENT:RadarDrawRadius( x, y, radius, color, color2 )
 
+	// grow to full size
 	self.RadarGrowTime = self.RadarGrowTime or ( CurTime() + 0.25 );
 	self.RadarPingOffset = self.RadarPingOffset or math.random( 1, 360 );
 	
@@ -131,7 +137,8 @@ function ENT:RadarDrawRect( x, y, w, h, color, a )
 		a = ( 360 - a ) + 90;
 		
 	end
-
+	
+	// draw rect
 	surface.SetMaterial( White );
 	surface.SetDrawColor( color.r, color.g, color.b, color.a );
 	surface.DrawTexturedRectRotated( x, y, w, h, a or 0 );
@@ -150,18 +157,21 @@ function ENT:ShowHint()
 		self.DontHint = true;
 		return;
 		
-	elseif ( hud.IsHintSurpressed( self.HintTopic ) ) then
+	// topic is surpressed
+	elseif ( hud.IsHintSuppressed( self.HintTopic ) ) then
 	
 		self.DontHint = true;
 		return;
 	
+	// dont hint right now
 	elseif ( !hud.ShouldHint( self.HintTopic ) ) then
 	
 		return;
 		
 	end
 	
-	if ( hud.AddHint( self:GetPos() + ( self.HintOffset or vector_origin ), self.HintTopic ) ) then
+	// check if we've added the hint
+	if ( hud.AddHint( self:GetPos() + ( self.HintOffset or vector_origin ), self.HintTopic, self ) ) then
 	
 		self.DontHint = true;
 		
@@ -175,6 +185,7 @@ end
 ------------------------------------*/
 function ENT:HintThink()
 
+	// verify player has a ball
 	local check, ball = LPHasBall();
 	if ( !check ) then
 	
@@ -183,6 +194,8 @@ function ENT:HintThink()
 		
 	end
 	
+	// this prevents people moving flying down the course and having
+	// hints appear behind them that they dont notice
 	if ( ball:GetVelocity():Length() > 40 ) then
 	
 		return;
@@ -190,9 +203,8 @@ function ENT:HintThink()
 	end
 	
 	// throw a hint if possible
-	if ( !self.DontHint && ( ball:GetPos() - self:GetPos() ):Length() <= HINT_DISTANCE ) then
+	if ( !self.DontHint && ( ball:GetPos() - self:GetPos() ):Length() <= HINT_MIN_DISTANCE ) then
 	
-		print( self, "showing" );
 		self:ShowHint();
 	
 	end
@@ -211,6 +223,7 @@ function ENT:Think()
 	// update hole
 	self.CurrentHole = RoundController():GetCurrentHole();
 	
+	// we need hints!
 	self:HintThink();
 	
 	return true;
