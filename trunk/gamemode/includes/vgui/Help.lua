@@ -73,7 +73,7 @@ function PANEL:Init()
 	self.CurrentCategory = nil;
 	
 	// load help
-	L( "help/", "*.txt", nil, function( f, p )
+	L( "zinger/help/", "*.txt", nil, function( f, p )
 		
 		self:LoadHelpFile( f );
 
@@ -241,7 +241,7 @@ end
 ------------------------------------*/
 function PANEL:LoadHelpFile( f )
 
-	local d = file.Read( "help/" .. f );
+	local d = file.Read( "zinger/help/" .. f );
 	local text = string.Explode( "\n", d );
 	local category, index, title = unpack( string.Explode( ":", text[ 1 ] ) );
 	index = tonumber( index );
