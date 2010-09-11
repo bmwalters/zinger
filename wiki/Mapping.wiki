@@ -1,5 +1,5 @@
 #summary Mapping Guide
-#labels Phase-Implementation
+#labels Phase-Design
 
 = Introduction =
 
