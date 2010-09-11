@@ -1,4 +1,5 @@
 #summary Mapping Guide
+#labels Level-Design
 
 = Introduction =
 
