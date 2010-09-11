@@ -8,7 +8,7 @@ Zinger maps should be simple and maintain the cartoon feel of the game. Over com
 
 = Terminology =
 
-  * An entire map is considered a course
+  * An entire map is considered a [course]
   * Each course is broken up into holes
   * Players start at the tee
   * At the end of the hole there is a cup
