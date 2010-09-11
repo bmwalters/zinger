@@ -17,9 +17,11 @@ Zinger maps should be simple and maintain the cartoon feel of the game. Over com
 = Best Practices =
 
 There are some easy guidelines to follow that will help ensure your map retains the intended theme of the game:
-  * Use simple shapes- there is no need for complex structures.
-  * Exaggerated angles- don't leave a cube perfectly square. Skew it.
-  * Reuse the included textures as much as possible to help players easily recognize portions are the play area and what are out of bounds
-  * Each hole should be contained in its own skybox
-  * Holes should be linear: with a well defined path from start to finish
-  * The playable area should allow players the ability to bounce around yet have enough [hazards] to keep it challenging.
+  * Use simple shapes throughout the map, there is no need for complex structures.
+  * Use exaggerated angles. Don't leave a cube perfectly square. Skew it.
+  * Reuse the included textures as much as possible to help players easily recognize what portions are the play area and what is out of bounds.
+  * Each hole should be contained in its own skybox.
+  * Holes should be linear with a well defined path from start to finish.
+  * The playable area should allow players the ability to bounce around yet have enough hazards to keep it challenging.
+  * Holes should accommodate at least 8 to 10 players.
+  * The use of bottlenecks is encouraged to allow for strategy and cooperative play.
