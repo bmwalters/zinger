@@ -3,7 +3,7 @@
 
 = Introduction =
 
-Zinger maps should be simple and maintain the cartoon feel of the game. Over complicated brushes and textures will only drown out the comical feel and appear out of place from the rest of the gamemode. The developers designed the theme to allow quick and easy mapping, focusing mainly on gameplay and less on details.
+Zinger maps should be simple and maintain the cartoon feel of the gamemode. Over complicated brushes and textures will only drown out the comical feel and appear out of place. The developers specifically designed the theme to allow for quick and easy mapping; focusing mainly on gameplay and less on brush details.
 
 
 = Terminology =
