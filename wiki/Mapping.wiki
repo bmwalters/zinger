@@ -5,6 +5,11 @@
 
 Zinger maps should be simple and maintain the cartoony feel of the game. Over complicated brushes and textures will only drown out the comical feel seem out of place.
 
+{{{
+this
+is
+code
+}}}
 
 = Details =
 
