@@ -1,19 +1,24 @@
-#summary Mapping Best Practices
+#summary Mapping Guide
 #labels Phase-Implementation
 
 = Introduction =
 
-Zinger maps should be simple and maintain the cartoony feel of the game. Over complicated brushes and textures will only drown out the comical feel seem out of place.
+Zinger maps should be simple and maintain the cartoon feel of the game. Over complicated brushes and textures will only drown out the comical feel and appear out of place from the rest of the gamemode. The developers designed the theme to allow quick and easy mapping, focusing mainly on gameplay and less on details.
 
-{{{
-this
-is
-code
-}}}
 
-= Details =
+= Terminology =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+  * An entire map is considered a [course]
+  * Each [course] is broken up into [holes]
+  * Players start at the [tee]
+  * At the end of the [hole] there is a [cup]
+
+
+= Best Practices =
+
+There are some easy guidelines to follow that will help ensure your map retains the intended theme of the game:
+  * Use simple shapes- there is no need for complex structures.
+  * Exaggerated angles- don't leave a cube perfectly square. Skew it.
+  * Reuse the included textures as much as possible to help players easily recognize portions are the [play area] and what are [out of bounds]
+  * Each [hole] should be contained in its own [skybox]
+  
