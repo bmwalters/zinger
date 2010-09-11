@@ -25,3 +25,5 @@ There are some easy guidelines to follow that will help ensure your map retains 
   * The playable area should allow players the ability to bounce around yet have enough hazards to keep it challenging.
   * Holes should accommodate at least 8 to 10 players.
   * The use of bottlenecks is encouraged to allow for strategy and cooperative play.
+  * Both tees should start at approximately the same area and neither team should have an advantage over the other
+  * Avoid gentle slopes at all costs. They force the balls to roll at relatively low speeds and unnecessarily extend a players wait time.
