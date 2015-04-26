@@ -6,10 +6,6 @@ ENT.PrintName	= "Viewmodel"
 
 ENT.AutomaticFrameAdvance = true
 
-function ENT:SetupDataTables()
-	self:DTVar("Bool", 0, "PitchLocked")
-end
-
 function ENT:Initialize()
 	self.BaseClass.Initialize(self)
 
@@ -41,7 +37,7 @@ function ENT:Think()
 	-- lerp viewing angle
 	self.ViewAngle = LerpAngle(FrameTime() * 6, self.ViewAngle, (ball.AimVec or vector_up):Angle())
 
-	if self.dt.PitchLocked then
+	if self:GetNWBool("PitchLocked") then
 		self.ViewAngle.p = 0
 	end
 
@@ -66,7 +62,7 @@ if SERVER then
 	end
 
 	function ENT:SetPitchLocked(value)
-		self.dt.PitchLocked = value
+		self:SetNWBool("PitchLocked", value)
 	end
 end
 

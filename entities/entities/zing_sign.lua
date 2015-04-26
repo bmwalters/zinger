@@ -35,7 +35,7 @@ end
 if CLIENT then
 	ENT.RenderGroup = RENDERGROUP_OPAQUE
 
-	local RT = GetRenderTarget("Sign")
+	local RT = GetRenderTarget("Sign", 512, 512)
 
 	local Background = CreateMaterial("SignTexture", "UnlitGeneric", {
 		["$basetexture"] = "zinger/models/sign/sign",
@@ -43,7 +43,7 @@ if CLIENT then
 	})
 
 	local SignMaterial = Material("zinger/models/sign/sign")
-	SignMaterial:SetMaterialTexture("$basetexture", RT)
+	SignMaterial:SetTexture("$basetexture", RT)
 
 	function ENT:Initialize()
 		self:SetRenderBounds(self:OBBMins(), self:OBBMaxs())

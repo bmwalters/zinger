@@ -24,7 +24,7 @@ function Call(name, ...)
 	if StatHandlers[name] then
 		dprint("Stat Event", name)
 
-		StatHandlers[name](unpack(arg))
+		StatHandlers[name](unpack({...}))
 	end
 end
 

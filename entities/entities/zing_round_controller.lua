@@ -9,44 +9,31 @@ ENT.Instructions	= ""
 ENT.Spawnable		= false
 ENT.AdminSpawnable	= false
 
-function ENT:SetupDataTables()
-	self:DTVar("Float", 0, "RoundEndTime")
-	self:DTVar("Float", 1, "RedProgress")
-	self:DTVar("Float", 2, "BlueProgress")
-	self:DTVar("Float", 3, "RoundDuration")
-	self:DTVar("Int", 0, "RoundState")
-	self:DTVar("Int", 1, "CurrentHole")
-	self:DTVar("Int", 2, "Sky")
-	self:DTVar("Int", 3, "CurrentRules")
-
-	-- self.dt.Sky = SKY_DAY
-end
-
 function ENT:GetRoundEndTime()
-	return self.dt.RoundEndTime
+	return self:GetNWFloat("RoundEndTime")
 end
 
 function ENT:GetRoundDuration()
-	return self.dt.RoundDuration
+	return self:GetNWFloat("RoundDuration")
 end
 
 function ENT:GetRoundState()
-	return self.dt.RoundState
+	return self:GetNWInt("RoundState")
 end
 
 function ENT:GetCurrentHole()
-	return self.dt.CurrentHole
+	return self:GetNWInt("CurrentHole")
 end
 
 function ENT:GetCurrentRules()
-	return self.dt.CurrentRules
+	return self:GetNWInt("CurrentRules")
 end
 
 function ENT:GetProgress(t)
 	if t == TEAM_ORANGE then
-		return self.dt.RedProgress
+		return self:GetNWFloat("RedProgress")
 	elseif t == TEAM_PURPLE then
-		return self.dt.BlueProgress
+		return self:GetNWFloat("BlueProgress")
 	end
 
 	return 0
@@ -64,30 +51,30 @@ if SERVER then
 	end
 
 	function ENT:SetRoundEndTime(time)
-		self.dt.RoundEndTime = time
+		self:SetNWFloat("RoundEndTime", time)
 	end
 
 	function ENT:SetRoundDuration(time)
-		self.dt.RoundDuration = time
+		self:SetNWFloat("RoundDuration", time)
 	end
 
 	function ENT:SetRoundState(state)
-		self.dt.RoundState = state
+		self:SetNWInt("RoundState", state)
 	end
 
 	function ENT:SetCurrentHole(num)
-		self.dt.CurrentHole = num
+		self:SetNWInt("CurrentHole", num)
 	end
 
 	function ENT:SetCurrentRules(num)
-		self.dt.CurrentRules = num
+		self:SetNWInt("CurrentRules", num)
 	end
 
 	function ENT:SetProgress(t, float)
 		if t == TEAM_ORANGE then
-			self.dt.RedProgress = float
+			self:SetNWFloat("RedProgress", float)
 		elseif t == TEAM_PURPLE then
-			self.dt.BlueProgress = float
+			self:SetNWFloat("BlueProgress", float)
 		end
 	end
 end

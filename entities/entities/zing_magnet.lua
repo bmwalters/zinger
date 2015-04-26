@@ -6,11 +6,6 @@ ENT.PrintName	= "Magnet"
 ENT.Model		= Model("models/zinger/magnet.mdl")
 ENT.IsMagnet	= true
 
-function ENT:SetupDataTables()
-	self:DTVar("Bool", 0, "Active")
-	self.dt.Active = false
-end
-
 if SERVER then
 	function ENT:Initialize()
 		self.DieTime = CurTime() + MAGNET_DURATION
@@ -26,6 +21,8 @@ if SERVER then
 			phys:Wake()
 			phys:SetMass(10)
 		end
+
+		self:SetNWBool("Active", false)
 
 		-- magnet sound
 		self.Sound = CreateSound(self.Entity, Sound("ambient/machines/combine_shield_loop3.wav"))
@@ -46,7 +43,7 @@ if SERVER then
 			return
 		end
 
-		if self.dt.Active then
+		if self:GetNWBool("Active") then
 			debugoverlay.Sphere(self:GetPos(), MAGNET_ATTRACT_RADIUS, 0.05, color_transparent) -- why
 			local owner = self:GetOwner()
 			local balls = ents.FindByClass("zing_ball")
@@ -87,8 +84,8 @@ if SERVER then
 	end
 
 	function ENT:PhysicsCollide(data, physobj)
-		if not self.dt.Active then
-			self.dt.Active = true
+		if not self:GetNWBool("Active") then
+			self:SetNWBool("Active", true)
 			local phys = self:GetPhysicsObject()
 			if IsValid(phys) then
 				phys:EnableDrag(true)

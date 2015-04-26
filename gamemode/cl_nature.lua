@@ -9,7 +9,9 @@ local MaterialComet = Material("zinger/sky/comet")
 -- model we use to render the sky horizon
 local HorizonModel = ClientsideModel("models/zinger/ball.mdl")
 HorizonModel:SetNoDraw(true)
-HorizonModel:SetModelScale(Vector(-2500, -2500, -2500))
+local mat = Matrix()
+mat:Scale(Vector(-2500, -2500, -2500))
+HorizonModel:EnableMatrix("RenderMultiply", mat)
 HorizonModel:SetupBones()
 
 local SkyConVar = CreateClientConVar("cl_zing_skydetail", "4", true, false)

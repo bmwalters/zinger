@@ -78,13 +78,17 @@ function PANEL:Paint(w, h)
 		if self:GetOutline() > 0 then
 			render.MaterialOverride(BlackModelSimple)
 
-			self.Entity:SetModelScale(Vector() * self:GetOutline())
+			local mat = Matrix()
+			mat:Scale(Vector() * self:GetOutline())
+			self.Entity:EnableMatrix("RenderMultiply", mat)
 			self.Entity:SetupBones()
 			self.Entity:DrawModel()
 
 			-- reset everything
 			render.MaterialOverride()
-			self.Entity:SetModelScale(Vector() * 1)
+			local mat = Matrix()
+			mat:Scale(Vector() * 1)
+			self.Entity:EnableMatrix("RenderMultiply", mat)
 			self.Entity:SetupBones()
 		end
 

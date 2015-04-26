@@ -9,6 +9,7 @@ function Clear()
 end
 
 function Call(name, ...)
+	local args = {...}
 	-- make sure we've got our table
 	if not CurrentRule then
 		-- grab a unique copy
@@ -18,10 +19,10 @@ function Call(name, ...)
 	if CurrentRule[name] then
 		if SERVER then
 			-- pass every event to stats
-			stats.Call(name, unpack(arg))
+			stats.Call(name, unpack(args))
 		end
 
-		return CurrentRule[name](CurrentRule, unpack(arg))
+		return CurrentRule[name](CurrentRule, unpack(args))
 	end
 
 	-- TODO: add a debug message?
@@ -35,16 +36,17 @@ end
 
 -- load base rule
 local path = "zinger/gamemode/includes/rules/"
+if SERVER then AddCSLuaFile(path .. "base.lua") end
 include(path .. "base.lua")
 
 -- load rules
-for _, f in pairs(file.Find(path .. "*")) do
+for _, f in pairs(file.Find(path .. "*", "LUA")) do
 	if f == "base.lua" then continue end
 	-- extract name
 	local _, _, key = string.find(f, "([%w_]*)%.lua") -- was \.lua
 
 	-- create base
-	local RULE = CreateRule()
+	RULE = CreateRule()
 	RULE.Key = key
 
 	if SERVER then
@@ -55,6 +57,8 @@ for _, f in pairs(file.Find(path .. "*")) do
 	-- add to list
 	Rules[#Rules + 1] = RULE
 	RULE.Index = #Rules
+
+	RULE = nil
 end
 
 Rules[#Rules + 1] = CreateRule()

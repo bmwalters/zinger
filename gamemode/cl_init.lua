@@ -251,13 +251,17 @@ local function DrawModelOutlinedSimple(ent, width, width2)
 	render.MaterialOverride(BlackModelSimple)
 
 	-- render model
-	ent:SetModelScale(width)
+	local mat = Matrix()
+	mat:Scale(width)
+	ent:EnableMatrix("RenderMultiply", mat)
 	ent:SetupBones()
 	ent:DrawModel()
 
 	-- render second if needed
 	if width2 then
-		ent:SetModelScale(width2)
+		local mat = Matrix()
+		mat:Scale(width2)
+		ent:EnableMatrix("RenderMultiply", mat)
 		ent:SetupBones()
 		ent:DrawModel()
 	end
@@ -267,7 +271,9 @@ local function DrawModelOutlinedSimple(ent, width, width2)
 	render.SuppressEngineLighting(false)
 
 	-- render model
-	ent:SetModelScale(Vector() * 1)
+	local mat = Matrix()
+	mat:Scale(Vector() * 1)
+	ent:EnableMatrix("RenderMultiply", mat)
 	ent:SetupBones()
 	ent:DrawModel()
 end
@@ -290,7 +296,9 @@ function DrawModelOutlined(ent, width, width2)
 	render.SetStencilWriteMask(1)
 	render.SetStencilReferenceValue(1)
 		-- render model
-		ent:SetModelScale(Vector() * 1)
+		local mat = Matrix()
+		mat:Scale(Vector() * 1)
+		ent:EnableMatrix("RenderMultiply", mat)
 		ent:SetupBones()
 		ent:DrawModel()
 	-- render the outline everywhere the model isn't
@@ -303,13 +311,17 @@ function DrawModelOutlined(ent, width, width2)
 	render.SuppressEngineLighting(true)
 	render.MaterialOverride(BlackModel)
 		-- render model
-		ent:SetModelScale(width)
+		local mat = Matrix()
+		mat:Scale(width)
+		ent:EnableMatrix("RenderMultiply", mat)
 		ent:SetupBones()
 		ent:DrawModel()
 
 		-- render second if needed
 		if width2 then
-			ent:SetModelScale(width2)
+			local mat = Matrix()
+			mat:Scale(width2)
+			ent:EnableMatrix("RenderMultiply", mat)
 			ent:SetupBones()
 			ent:DrawModel()
 		end

@@ -78,7 +78,7 @@ function meta:ActivateViewModel(model, skin, locked)
 	local ball = self:GetBall()
 	if not IsBall(ball) then return end
 
-	local viewmodel = ball.dt.ViewModel
+	local viewmodel = ball:GetNWEntity("ViewModel")
 	if not IsValid(viewmodel) then return end
 
 	viewmodel:SetModel(model)
@@ -93,7 +93,7 @@ function meta:SetViewModelAnimation(anim, speed)
 	local ball = self:GetBall()
 	if not IsBall(ball) then return 0 end
 
-	local viewmodel = ball.dt.ViewModel
+	local viewmodel = ball:GetNWEntity("ViewModel")
 	if not IsValid(viewmodel) then return 0 end
 
 	viewmodel:ResetSequence(viewmodel:LookupSequence(anim))
@@ -106,7 +106,7 @@ function meta:DeactivateViewModel()
 	local ball = self:GetBall()
 	if not IsBall(ball) then return end
 
-	local viewmodel = ball.dt.ViewModel
+	local viewmodel = ball:GetNWEntity("ViewModel")
 	if not IsValid(viewmodel) then return end
 
 	viewmodel:SetNoDraw(true)

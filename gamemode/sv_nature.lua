@@ -41,7 +41,7 @@ end
 function GM:SetSky(sky)
 	local rc = RoundController()
 	if IsValid(rc) then
-		rc.dt.Sky = sky
+		rc:SetNWInt("Sky", sky)
 	else
 		timer.Simple(0, function()
 			self:SetSky(sky)

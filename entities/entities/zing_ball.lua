@@ -12,12 +12,6 @@ AccessorFunc(ENT, "IsStone", "Stone")
 AccessorFunc(ENT, "IsDisguise", "Disguise")
 AccessorFunc(ENT, "IsSpy", "Spy")
 
-function ENT:SetupDataTables()
-	self:DTVar("Entity", 0, "ViewModel")
-	self.dt.ViewModel = NULL
-end
-
-
 function ENT:Team()
 	local ply = self:GetOwner()
 	if not IsValid(ply) then
@@ -31,7 +25,7 @@ end
 function ENT:GetWeaponPosition(item)
 	-- does this ball have a view model?
 	-- if not return the ball position and angles
-	local viewmodel = self.dt.ViewModel
+	local viewmodel = self:GetNWEntity("ViewModel")
 	if not IsValid(viewmodel) then
 		return self:GetPos(), self.AimVec:Angle()
 	end
@@ -88,7 +82,7 @@ if SERVER then
 		viewmodel:SetPos(self:GetPos())
 		viewmodel:Spawn()
 		viewmodel:SetOwner(self.Entity)
-		self.dt.ViewModel = viewmodel
+		self:SetNWEntity("ViewModel", viewmodel)
 		self:DeleteOnRemove(viewmodel)
 	end
 

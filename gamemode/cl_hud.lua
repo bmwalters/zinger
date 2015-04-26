@@ -310,7 +310,7 @@ function GM:UpdateBubble(ply)
 	end
 
 	-- run trace
-	ply:SetFOV(80)
+	ply:SetFOV(80, 0)
 	local tr = util.TraceLine({
 		start = EyePos(),
 		endpos = EyePos() + ply:GetAimVector() * (1024 * 3),

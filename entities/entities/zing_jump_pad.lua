@@ -6,9 +6,6 @@ ENT.PrintName	= "Jump Pad"
 ENT.Model		= Model("models/zinger/pad.mdl")
 ENT.IsJumpPad	= true
 
-function ENT:SetupDataTables()
-end
-
 if SERVER then
 	function ENT:Initialize()
 		self:DrawShadow(false)

@@ -40,11 +40,11 @@ end
 function GM:GetSky()
 	local rc = RoundController()
 	if IsValid(rc) then
-		if rc.dt.Sky == 0 then
+		if rc:GetNWInt("Sky") == 0 then
 			return 1
 		end
 
-		return rc.dt.Sky
+		return rc:GetNWInt("Sky")
 	end
 
 	return SKY_DAY

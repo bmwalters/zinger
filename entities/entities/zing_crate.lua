@@ -41,7 +41,7 @@ if SERVER then
 		-- gibs
 		local effect = EffectData()
 		effect:SetOrigin(self:GetPos())
-		effect:SetAngle(self:GetAngles())
+		effect:SetAngles(self:GetAngles())
 		util.Effect("Zinger.CrateBreak", effect)
 		SafeRemoveEntity(self)
 	end

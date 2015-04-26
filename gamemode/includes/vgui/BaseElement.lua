@@ -25,7 +25,8 @@ function PANEL:InitDone()
 	self:SetMouseInputEnabled(false)
 end
 
-function PANEL:PerformLayout(w, h)
+function PANEL:PerformLayout()
+	local w, h = self:GetSize()
 	self.Width, self.Height = w, h
 	self.MidWidth = w * 0.5
 	self.MidHeight = h * 0.5

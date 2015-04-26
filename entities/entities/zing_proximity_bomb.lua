@@ -6,11 +6,6 @@ ENT.PrintName	= "Proximity Bomb"
 ENT.Model		= Model("models/zinger/proxbomb.mdl")
 ENT.IsBomb		= true
 
-function ENT:SetupDataTables()
-	self:DTVar("Bool", 0, "Active")
-	self.dt.Active = false
-end
-
 if SERVER then
 	function ENT:Initialize()
 		self:DrawShadow(true)
@@ -25,11 +20,13 @@ if SERVER then
 			phys:EnableDrag(false)
 			phys:Wake()
 		end
+
+		self:SetNWBool("Active", false)
 	end
 
 	function ENT:PhysicsCollide()
-		if not self.dt.Active then
-			self.dt.Active = true
+		if not self:GetNWBool("Active") then
+			self:SetNWBool("Active", true)
 			local phys = self:GetPhysicsObject()
 			if IsValid(phys) then
 				phys:EnableDrag(true)
@@ -68,7 +65,7 @@ if CLIENT then
 	end
 
 	function ENT:BuildBonePositions(numBones)
-		if self.dt.Active then
+		if self:GetNWBool("Active") then
 			local bone = self:GetBoneMatrix(1)
 			if bone then
 				bone:Rotate(Angle(0, 0, math.sin(CurTime() * 0.75) * 90))
@@ -78,7 +75,7 @@ if CLIENT then
 	end
 
 	function ENT:Think()
-		if not self.dt.Active then return end
+		if not self:GetNWBool("Active") then return end
 		if self.NextAlert > CurTime() then return end
 
 		self.NextAlert = CurTime() + 1

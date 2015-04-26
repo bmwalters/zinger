@@ -134,7 +134,7 @@ if CLIENT then
 
 	function ENT:Draw()
 		-- hide when not needed
-		if self.CurrentHole ~= self.dt.Hole then return end
+		if self.CurrentHole ~= self:GetNWInt("hole") then return end
 
 		-- calculate outline width
 		local width = math.Clamp((self:GetPos() - EyePos()):Length() - 100, 0, 600)
@@ -167,12 +167,13 @@ if CLIENT then
 	function ENT:DrawOnRadar(x, y, ang)
 		self:RadarDrawCircle(x, y, 8, color_white)
 	end
-
-	function ENT:OnRemove()
+--[[
+	function ENT:OnRemove() - Zerf
 		self.Forcefield:Remove()
 		self.BlueFlag:Remove()
 		self.RedFlag:Remove()
 
 		self.BaseClass.OnRemove(self)
 	end
+--]]
 end

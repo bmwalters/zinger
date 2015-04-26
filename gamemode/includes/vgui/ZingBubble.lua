@@ -59,6 +59,7 @@ function PANEL:Show(text, img)
 end
 
 function PANEL:Update(w, h)
+	if not (w and h) then w, h = self:GetSize() end
 	local mx, my = gui.MousePos()
 	self:SetPos(mx - (w * 0.5), my - h + 14)
 
@@ -71,7 +72,7 @@ function PANEL:Think()
 end
 
 function PANEL:Paint(w, h)
-	self:Update()
+	self:Update(w, h)
 
 	-- shrink height because we're going to add a tail
 	h = h - 30

@@ -7,17 +7,11 @@ ENT.Model		= Model("models/zinger/arch.mdl")
 ENT.Size		= 48
 ENT.NotifyColor	= Color(255, 240, 0, 255)
 
-function ENT:SetupDataTables()
-	self:DTVar("Int", 0, "Hole")
-	self:DTVar("Bool", 0, "RedDone")
-	self:DTVar("Bool", 1, "BlueDone")
-end
-
 function ENT:IsTeamDone(t)
 	if t == TEAM_ORANGE then
-		return self.dt.RedDone
+		return self:GetNWBool("RedDone")
 	elseif t == TEAM_PURPLE then
-		return self.dt.BlueDone
+		return self:GetNWBool("BlueDone")
 	end
 
 	return false
@@ -52,13 +46,16 @@ if SERVER then
 		trigger:SetParent(self)
 		trigger:SetRing(self)
 		self:DeleteOnRemove(trigger)
+
+		self:SetNWBool("RedDone", false)
+		self:SetNWBool("BlueDone", false)
 	end
 
 	function ENT:SetTeamDone(t, bool)
 		if t == TEAM_ORANGE then
-			self.dt.RedDone = bool
+			self:SetNWBool("RedDone", bool)
 		elseif t == TEAM_PURPLE then
-			self.dt.BlueDone = bool
+			self:SetNWBool("BlueDone", bool)
 		end
 	end
 
@@ -144,7 +141,7 @@ if CLIENT then
 
 	function ENT:Draw()
 		-- hide when not needed
-		if self.CurrentHole ~= self.dt.Hole then return end
+		if self.CurrentHole ~= self:GetNWInt("hole") then return end
 
 		-- calculate outline width
 		local width = math.Clamp((self:GetPos() - EyePos()):Length() - 100, 0, 600)

@@ -56,7 +56,7 @@ if CLIENT then
 
 	function ENT:Draw()
 		-- hide when not needed
-		if self.CurrentHole ~= self.dt.Hole then return end
+		if self.CurrentHole ~= self:GetNWInt("hole") then return end
 
 		-- calculate outline width
 		local width = math.Clamp((self:GetPos() - EyePos()):Length() - 100, 0, 600)

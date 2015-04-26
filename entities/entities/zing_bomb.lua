@@ -6,11 +6,6 @@ ENT.PrintName	= "Bomb"
 ENT.Model		= Model("models/zinger/bomb.mdl")
 ENT.IsBomb		= true
 
-function ENT:SetupDataTables()
-	self:DTVar("Bool", 0, "Active")
-	self.dt.Active = false
-end
-
 if SERVER then
 	function ENT:Initialize()
 		self:DrawShadow(true)
@@ -25,6 +20,8 @@ if SERVER then
 			phys:Wake()
 		end
 
+		self:SetNWBool("Active", false)
+
 		-- fuse sound
 		self.Sound = CreateSound(self.Entity, Sound("ambient/fire/fire_small_loop1.wav"))
 		self.Damage = 700
@@ -36,7 +33,7 @@ if SERVER then
 	end
 
 	function ENT:OnIgnite()
-		self.dt.Active = true
+		self:SetNWBool("Active", true)
 		local phys = self:GetPhysicsObject()
 		if IsValid(phys) then
 			phys:EnableDrag(true)
@@ -58,8 +55,8 @@ if SERVER then
 	function ENT:PhysicsCollide(data, physobj)
 		if IsValid(data.HitEntity) and data.HitEntity.IsBomb then return end
 
-		if not self.dt.Active then
-			self.dt.Active = true
+		if not self:GetNWBool("Active") then
+			self:SetNWBool("Active", true)
 			-- do it on a delay
 			timer.Simple(0, function() self:OnIgnite() end)
 		end
@@ -87,7 +84,7 @@ if CLIENT then
 	ENT.RenderGroup = RENDERGROUP_OPAQUE
 
 	function ENT:Think()
-		if self.dt.Active then
+		if self:GetNWBool("Active") then
 			-- if we're active, create a dynamic light at the Fuse attachment
 			local attachment = self:GetAttachment(self:LookupAttachment("Fuse"))
 			if attachment then

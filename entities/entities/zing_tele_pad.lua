@@ -6,9 +6,6 @@ ENT.PrintName	= "Teleport Pad"
 ENT.Model		= Model("models/zinger/pad.mdl")
 ENT.IsTelePad	= true
 
-function ENT:SetupDataTables()
-end
-
 if SERVER then
 	function ENT:Initialize()
 		self:DrawShadow(false)

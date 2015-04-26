@@ -7,7 +7,7 @@ Zinger! is a team based fretta gamemode that combines action, adventure and stra
 [Zinger's 2nd place victory in the Facepunch Fretta Contest!](http://web.archive.org/web/20110710215632/http://frettacontest.facepunchstudios.com/)
 [Zinger! ModDB page](http://www.moddb.com/mods/zinger)
 
-## Screenshots
+## Media
 (Click for full size)
 
 <a href="backgrounds/zinger_01.jpg?raw=true"><img src="backgrounds/zinger_01.jpg" width="24%" ></a>
@@ -26,6 +26,8 @@ Zinger! is a team based fretta gamemode that combines action, adventure and stra
 <a href="backgrounds/zinger_14.jpg?raw=true"><img src="backgrounds/zinger_14.jpg" width="24%" ></a>
 <a href="backgrounds/zinger_15.jpg?raw=true"><img src="backgrounds/zinger_15.jpg" width="24%" ></a>
 <a href="backgrounds/zinger_16.jpg?raw=true"><img src="backgrounds/zinger_16.jpg" width="24%" ></a>
+
+[![Demo Video](http://img.youtube.com/vi/XtSgjyyvHvw/0.jpg)](http://www.youtube.com/watch?v=XtSgjyyvHvw)
 
 ## Legal
 ```
@@ -51,5 +53,28 @@ http://creativecommons.org/licenses/by/3.0/"
 More information:
 http://incompetech.com/m/c/royalty-free/faq.html
 ```
+```
+All models found within "content/models/zinger" and any
+subfolders have been released under the
+"Create Commons Attribution 3.0" license
 
-https://www.youtube.com/user/johnson808/videos
+http://creativecommons.org/licenses/by/3.0/us/
+
+They have been created from scratch.
+```
+```
+  ____                _      _    ____              _
+ / ___|___  _ __ ___ (_) ___| | _| __ )  ___   ___ | | __
+| |   / _ \| '_ ` _ \| |/ __| |/ /  _ \ / _ \ / _ \| |/ /
+| |__| (_) | | | | | | | (__|   <| |_) | (_) | (_) |   <
+ \____\___/|_| |_| |_|_|\___|_|\_\____/ \___/ \___/|_|\_\
+
+A font for comics.
+
+It's not perfect, but I think it's pretty snazzy.
+
+Feel free to post this on other sites... just give credit to me. And preferably a link to http://www.oufoufsworld.co.uk.
+
+ouf-ouf
+ComickBook_Simple font created by http://www.oufoufsworld.co.uk.
+```

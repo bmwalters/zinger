@@ -8,21 +8,23 @@ include(path .. "base.lua")
 for k, v in pairs(file.Find(path .. "*", "LUA")) do
 	if v == "base.lua" then
 		if SERVER then
-			AddCSLuaFile(path .. f)
+			AddCSLuaFile(path .. v)
 		end
 		return
 	end
 
-	local _, _, key = string.find(f, "([%w_]*)%.lua") -- was \.lua
+	local _, _, key = string.find(v, "([%w_]*)%.lua") -- was \.lua
 
-	local CONDITION = CreateCondition(key)
+	CONDITION = CreateCondition(key)
 
 	if SERVER then
-		AddCSLuaFile(path .. f)
+		AddCSLuaFile(path .. v)
 	end
-	include(path .. f)
+	include(path .. v)
 
 	Conditions[key] = CONDITION
+
+	CONDITION = nil
 end
 
 

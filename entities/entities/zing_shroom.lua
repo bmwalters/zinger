@@ -6,11 +6,6 @@ ENT.PrintName	= "Shroom"
 ENT.Model		= Model("models/zinger/mushroom.mdl")
 ENT.Size		= 48
 
-function ENT:SetupDataTables()
-	self:DTVar("Bool", 0, "Impact")
-	self.dt.Impact = false
-end
-
 if SERVER then
 	function ENT:Initialize()
 		self:DrawShadow(true)
@@ -21,10 +16,12 @@ if SERVER then
 		self:SetCollisionBounds(self:OBBMins(), self:OBBMaxs())
 		self:SetTrigger(true)
 		self:NextThink(-1)
+
+		self:SetNWBool("Impact", false)
 	end
 
 	function ENT:Think(ent)
-		self.dt.Impact = false
+		self:SetNWBool("Impact", false)
 	end
 
 	function ENT:StartTouch(ent)
@@ -46,7 +43,7 @@ if SERVER then
 				debugoverlay.Line(ent:GetPos(), ent:GetPos() + reflect * 128, 5, Color(255, 0, 0, 255))
 				debugoverlay.Line(ent:GetPos() - plane * 64, ent:GetPos() + plane * 64, 5, Color(255, 255, 255, 255))
 				phys:SetVelocity(reflect * speed * 2)
-				self.dt.Impact = true
+				self:SetNWBool("Impact", true)
 				self:NextThink(CurTime() + 1)
 				self:EmitSound("zinger/boing.wav")
 			end
@@ -84,7 +81,7 @@ if CLIENT then
 	end
 
 	function ENT:Think()
-		if not self.BoingActive and self.dt.Impact then
+		if not self.BoingActive and self:GetNWBool("Impact") then
 			self.BoingActive = true
 			self.BoingEndTime = CurTime() + 1
 		end

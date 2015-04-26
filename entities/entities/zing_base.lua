@@ -11,12 +11,8 @@ ENT.AdminSpawnable	= false
 ENT.Model			= Model("models/error.mdl")
 ENT.Size			= 0
 
-function ENT:SetupDataTables()
-	self:DTVar("Int", 0, "Hole")
-end
-
 function ENT:GetHole()
-	return self.dt.Hole
+	return tonumber(self:GetNWInt("hole")) -- :/
 end
 
 if SERVER then
@@ -24,7 +20,7 @@ if SERVER then
 		self.KeyValues = self.KeyValues or {}
 		-- save hole
 		if key == "hole" then
-			self.dt.Hole = value
+			self:SetNWInt("hole", value)
 		else
 			self.KeyValues[key] = value
 		end

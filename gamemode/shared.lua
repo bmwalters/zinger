@@ -20,17 +20,18 @@ include("sh_enums.lua")
 
 if SERVER then
 	AddCSLuaFile()
+	AddCSLuaFile("sh_enums.lua")
 	AddCSLuaFile("cl_hud.lua")
 	AddCSLuaFile("cl_init.lua")
 	AddCSLuaFile("cl_nature.lua")
 	AddCSLuaFile("cl_player_events.lua")
-	AddCSLuaFile("sh_constants.lua")
 	AddCSLuaFile("sh_entity_extension.lua")
 	AddCSLuaFile("sh_math_extension.lua")
 	AddCSLuaFile("sh_player_extension.lua")
 	AddCSLuaFile("sh_roundinfo.lua")
 	AddCSLuaFile("sh_util_extension.lua")
 
+	include("sv_resources.lua")
 	include("sv_battlestats.lua")
 	include("sv_bot.lua")
 	include("sv_commands.lua")
@@ -52,7 +53,11 @@ if SERVER then
 	util.AddNetworkString("Zing_BeginBattleMusic")
 	util.AddNetworkString("Zing_PlaySound")
 	util.AddNetworkString("Zing_Cleanup")
-	-- util.AddNetworkString("fretta_teamchange") handled by fretta?
+	-- Fretta things
+	util.AddNetworkString("PlayableGamemodes")
+	util.AddNetworkString("RoundAddedTime")
+	util.AddNetworkString("PlayableGamemodes")
+	util.AddNetworkString("fretta_teamchange")
 end
 
 if CLIENT then
@@ -354,11 +359,11 @@ function GM:Think()
 		local ply = LocalPlayer()
 
 		-- update mouse gestures
-		controls.Update(pl)
+		controls.Update(ply)
 
 		-- ensure the aim vector is set on the client
 		if game.SinglePlayer() then
-			pl:UpdateAimVector()
+			ply:UpdateAimVector()
 		end
 
 		-- update music

@@ -18,11 +18,12 @@ if SERVER then
 end
 
 if CLIENT then
-	local show_foliage = GetConVar("cl_zing_show_foliage")
+	local show_foliage
 
 	ENT.RenderGroup = RENDERGROUP_OPAQUE
 
 	function ENT:Initialize()
+		show_foliage = GetConVar("cl_zing_show_foliage")
 		self.SwayOffset = math.random() * 4
 		self.SwayAngle = Angle(math.random(0, 2), 0, math.random(0, 2))
 		-- render bounds

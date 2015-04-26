@@ -29,7 +29,9 @@ function GM:GenerateCourse()
 			TempCourse[holeNum].PadEntities = {}
 			TempCourse[holeNum].AverageSupplyRadius = 0
 		end
+	end
 
+	for k, v in pairs(ents.GetAll()) do
 		-- gather tees
 		if v:GetClass() == "zing_tee_red" then
 			-- find out which hole this tee belongs to

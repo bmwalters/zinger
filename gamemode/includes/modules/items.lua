@@ -5,25 +5,21 @@ local MaxRow = 0
 
 -- load up the base item because things need it
 local path = "zinger/gamemode/includes/items/"
-include(path .. "/base.lua")
+if SERVER then AddCSLuaFile(path .. "base.lua") end
+include(path .. "base.lua")
 
 -- load up the remaining items
 for k, v in pairs(file.Find(path .. "*", "LUA")) do
-	if v == "base.lua" then
-		if SERVER then
-			AddCSLuaFile(filename)
-		end
-		return
-	end
+	if v == "base.lua" then continue end
 
-	local _, _, key = string.find(f, "([%w_]*)%.lua") -- was \.lua
+	local _, _, key = string.find(v, "([%w_]*)%.lua") -- was \.lua
 
-	local ITEM = CreateItem(key)
+	ITEM = CreateItem(key)
 
 	if SERVER then
-		AddCSLuaFile(path .. f)
+		AddCSLuaFile(path .. v)
 	end
-	include(path .. f)
+	include(path .. v)
 
 	-- precache
 	if ITEM.InventoryModel then
@@ -44,6 +40,8 @@ for k, v in pairs(file.Find(path .. "*", "LUA")) do
 	end
 
 	Items[key] = ITEM
+
+	ITEM = nil
 
 	NumItems = NumItems + 1
 end

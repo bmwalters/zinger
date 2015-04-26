@@ -38,9 +38,8 @@ function PANEL:Init()
 	self.TextInput:SetExpensiveShadow(1, color_black)
 
 	-- chat history
-	self.History = vgui.Create("DPanelList", self)
+	self.History = vgui.Create("DListLayout", self)
 	self.History:SetSize(500, 120)
-	self.History:SetBottomUp(true)
 	self.History:SetDrawBackground(false)
 
 	-- defaults
@@ -132,7 +131,7 @@ function PANEL:OnPlayerChat(pl, text, t, dead)
 
 	-- add after 1 frame
 	timer.Simple(FrameTime() + 0.001, function()
-		self.History:AddItem(v)
+		self.History:Add(v)
 	end)
 end
 
@@ -154,7 +153,7 @@ function PANEL:ChatText(pid, name, text, msgtype)
 
 	-- add after 1 frame
 	timer.Simple(FrameTime() + 0.001, function()
-		self.History:AddItem(l)
+		self.History:Add(l)
 	end)
 end
 

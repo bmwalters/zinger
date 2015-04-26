@@ -72,7 +72,7 @@ function BaseItem:GetWeaponPosition()
 end
 
 function BaseItem:GetViewModel()
-	return self.Ball.dt.ViewModel
+	return self.Ball:GetNWEntity("ViewModel")
 end
 
 function BaseItem:GetAimVector()
