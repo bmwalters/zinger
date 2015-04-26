@@ -1,304 +1,172 @@
-
-/*------------------------------------
-	LerpColor()
-------------------------------------*/
-function LerpColor( percent, colorA, colorB )
-
+function LerpColor(percent, colorA, colorB)
 	return Color(
-		Lerp( percent, colorA.r, colorB.r ),
-		Lerp( percent, colorA.g, colorB.g ),
-		Lerp( percent, colorA.b, colorB.b ),
-		Lerp( percent, colorA.a, colorB.a )
-	);
-
+		Lerp(percent, colorA.r, colorB.r),
+		Lerp(percent, colorA.g, colorB.g),
+		Lerp(percent, colorA.b, colorB.b),
+		Lerp(percent, colorA.a, colorB.a)
+	)
 end
 
 
-/*------------------------------------
-	IsBall()
-------------------------------------*/
-function IsBall( ent )
+function IsBall(ent)
+	return IsValid(ent) and ent.IsBall
+end
 
-	return ( IsValid( ent ) && ent.IsBall == true );
+function IsCrate(ent)
+	return IsValid(ent) and ent.IsCrate
+end
 
+function IsMagnet(ent)
+	return IsValid(ent) and ent.IsMagnet
+end
+
+function IsCup(ent)
+	return IsValid(ent) and ent.IsCup
+end
+
+function IsTee(ent)
+	return IsValid(ent) and ent.IsTee
+end
+
+function IsJumpPad(ent)
+	return IsValid(ent) and ent.IsJumpPad
+end
+
+function IsTelePad(ent)
+	return IsValid(ent) and ent.IsTelePad
 end
 
 
-/*------------------------------------
-	IsCrate()
-------------------------------------*/
-function IsCrate( ent )
-
-	return ( IsValid( ent ) && ent.IsCrate == true );
-
+function IsOOB(tr)
+	return (tr.MatType == MAT_SLOSH or bit.band(util.PointContents(tr.HitPos), CONTENTS_WATER) == CONTENTS_WATER or tr.HitSky)
 end
 
 
-/*------------------------------------
-	IsMagnet()
-------------------------------------*/
-function IsMagnet( ent )
-
-	return ( IsValid( ent ) && ent.IsMagnet == true );
-
+function IsWorldTrace(tr)
+	-- assume movetype_push is a brush
+	return (tr.HitWorld or (IsValid(tr.Entity) and tr.Entity:GetMoveType() == MOVETYPE_PUSH))
 end
 
 
-/*------------------------------------
-	IsCup()
-------------------------------------*/
-function IsCup( ent )
-
-	return ( IsValid( ent ) && ent.IsCup == true );
-
-end
-
-
-/*------------------------------------
-	IsTee()
-------------------------------------*/
-function IsTee( ent )
-
-	return ( IsValid( ent ) && ent.IsTee == true );
-
-end
-
-
-/*------------------------------------
-	IsJumpPad()
-------------------------------------*/
-function IsJumpPad( ent )
-
-	return ( IsValid( ent ) && ent.IsJumpPad == true );
-
-end
-
-
-/*------------------------------------
-	IsTelePad()
-------------------------------------*/
-function IsTelePad( ent )
-
-	return ( IsValid( ent ) && ent.IsTelePad == true );
-
-end
-
-
-/*------------------------------------
-	IsOOB()
-------------------------------------*/
-function IsOOB( tr )
-
-	return ( tr.MatType == MAT_SLOSH || ( util.PointContents( tr.HitPos ) & CONTENTS_WATER ) == CONTENTS_WATER || tr.HitSky );
-
-end
-
-
-/*------------------------------------
-	IsWorldTrace()
-------------------------------------*/
-function IsWorldTrace( tr )
-
-	// assume movetype_push is a brush
-	return ( tr.HitWorld || ( IsValid( tr.Entity ) && tr.Entity:GetMoveType() == MOVETYPE_PUSH ) );
-
-end
-
-
-/*------------------------------------
-	Dev()
-------------------------------------*/
+local developer = CreateConVar("zinger_developer", 0, FCVAR_ARCHIVE, "Enables developer features of Zinger!") -- GetConVar("developer")
 function Dev()
+	return developer:GetBool()
+end
 
-	return ( GetConVarNumber( "developer" ) > 0 );
+function dprint(...)
+	if not Dev() then return end
 
+	local s = "~ " .. table.concat({...}, "\t")
+	MsgN(s)
 end
 
 
-/*------------------------------------
-	dprint()
-------------------------------------*/
-function dprint( ... )
+function util.InchesToFeet(inches)
+	local feet = math.floor(inches / 12)
+	inches = inches % 12
 
-	if ( !Dev() ) then
-	
-		return;
-		
+	local text = (feet > 0) and (feet .. "'-") or ""
+	text = text .. inches .. "\""
+
+	return text
+end
+
+
+function util.OtherTeam(t)
+	return (t == TEAM_ORANGE) and TEAM_PURPLE or TEAM_ORANGE
+end
+
+local color_red = Color(255, 0, 0)
+local color_green = Color(0, 255, 0)
+local color_blue = Color(0, 0, 255)
+local color_gray40 = Color(40, 40, 40)
+local color_white_a = Color(255, 255, 255, 64)
+
+function debugoverlay.Trace(trace, tr, time)
+	-- main line
+	debugoverlay.Line(tr.StartPos, tr.HitPos, time, color_green)
+	debugoverlay.Line(tr.HitPos, trace.endpos, time, color_red)
+
+	-- start/hit/end
+	debugoverlay.Cross(tr.StartPos, 8, time, color_gray40)
+	debugoverlay.Cross(tr.HitPos, 8, time, color_gray40)
+	debugoverlay.Cross(trace.endpos, 8, time, color_gray40)
+
+	-- normal
+	debugoverlay.Line(tr.HitPos, tr.HitPos + tr.HitNormal * 32, time, color_blue)
+
+	-- bounding boxes
+	if trace.mins and trace.maxs then
+		debugoverlay.Box(tr.HitPos, trace.mins, trace.maxs, time, color_white_a)
+		debugoverlay.Box(tr.StartPos, trace.mins, trace.maxs, time, color_white_a)
 	end
-	
-	local s = "~ " .. table.concat( arg, "\t" );
-	MsgN( s );
-	
 end
 
+--[[
+local TraceLine = util.TraceLine
+function util.TraceLine(trace)
+	local tr = TraceLine(trace)
 
-/*------------------------------------
-	InchesToFeet()
-------------------------------------*/
-function util.InchesToFeet( num )
-
-	local feet = math.floor( num / 12 );
-	local inches = num - ( feet * 12 );
-	
-	local text = ( feet > 0 ) && ( feet .. "'-" ) || "";
-	text = text .. inches .. "\"";
-	
-	return text;
-
-end
-
-
-/*------------------------------------
-	OtherTeam()
-------------------------------------*/
-function util.OtherTeam( t )
-
-	if ( t == TEAM_ORANGE ) then
-	
-		return TEAM_PURPLE;
-		
-	else
-	
-		return TEAM_ORANGE;
-		
-	end
-	
-end
-
-
-/*------------------------------------
-	TraceLine()
-------------------------------------*/
-local TraceLine = util.TraceLine;
-function util.TraceLine( trace )
-
-	local tr = TraceLine( trace );
-	
-	if( trace.debug ) then
-	
-		debugoverlay.Trace( trace, tr, trace.duration or 1 );
-		
+	if trace.debug then
+		debugoverlay.Trace(trace, tr, trace.duration or 1)
 	end
 
-	return tr;
-	
+	return tr
 end
 
+local TraceHull = util.TraceHull
+function util.TraceHull(trace)
+	local tr = TraceHull(trace)
 
-/*------------------------------------
-	TraceHull()
-------------------------------------*/
-local TraceHull = util.TraceHull;
-function util.TraceHull( trace )
-
-	local tr = TraceHull( trace );
-	
-	if( trace.debug ) then
-	
-		debugoverlay.Trace( trace, tr, trace.duration or 1 );
-		
+	if trace.debug then
+		debugoverlay.Trace(trace, tr, trace.duration or 1)
 	end
 
-	return tr;
-	
+	return tr
 end
 
+local TraceEntity = util.TraceEntity
+function util.TraceEntity(trace, entity)
+	local tr = TraceEntity(trace, entity)
 
-/*------------------------------------
-	TraceEntity()
-------------------------------------*/
-local TraceEntity = util.TraceEntity;
-function util.TraceEntity( trace, entity )
+	if trace.debug then
+		tr.mins = entity:OBBMins()
+		tr.maxs = entity:OBBMaxs()
 
-	local tr = TraceEntity( trace, entity );
-	
-	if( trace.debug ) then
-	
-		tr.mins = entity:OBBMins();
-		tr.maxs = entity:OBBMaxs();
-	
-		debugoverlay.Trace( trace, tr, trace.duration or 1 );
-		
+		debugoverlay.Trace(trace, tr, trace.duration or 1)
 	end
 
-	return tr;
-	
+	return tr
 end
+--]]
 
-
-/*------------------------------------
-	IsSpaceOccupied()
-------------------------------------*/
-function IsSpaceOccupied( pos, mins, maxs, entity )
-
-	// ensure the area is empty
-	local tr = util.TraceHull( {
+function IsSpaceOccupied(pos, mins, maxs, entity)
+	-- ensure the area is empty
+	local tr = util.TraceHull({
 		start = pos,
 		endpos = pos,
 		mins = mins,
 		maxs = maxs,
 		filter = entity,
-	} );
-	
-	return tr.StartSolid;
-	
+	})
+
+	return tr.StartSolid
 end
 
-
-/*------------------------------------
-	table.RemoveValue
-------------------------------------*/
-function table.RemoveValue( t, value )
-
+function table.RemoveValue(t, value)
 	for i = #t, 1, -1 do
-	
-		if ( t[ i ] == value ) then
-		
-			table.remove( i );
-			
+		if t[i] and t[i] == value then
+			table.remove(i)
+			return i
 		end
-	
 	end
-
 end
 
-
-/*------------------------------------
-	HasBall
-------------------------------------*/
-function HasBall( pl )
-
-	local ent = pl:GetBall();
-	if ( IsBall( ent ) ) then
-	
-		return true, ent;
-		
-	end
-	
-	return false;
-
-end
-
-
-if ( CLIENT ) then
-
-	/*------------------------------------
-		LPHasBall
-	------------------------------------*/
-	function LPHasBall()
-	
-		return HasBall( LocalPlayer() );
-	
-	end
-	
-	
-	/*------------------------------------
-		SND
-	------------------------------------*/
-	function SND( snd )
-	
-		surface.PlaySound( Sound( snd ) );
-	
+function HasBall(ply)
+	local ent = ply:GetBall()
+	if IsBall(ent) then
+		return true, ent
 	end
 
+	return false
 end

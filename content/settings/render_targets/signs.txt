@@ -1,1 +1,6 @@
-"Sign"{	"Name"		"Sign"	"Width"		"512"	"Height"	"512"}
+"Sign"
+{
+	"Name"		"Sign"
+	"Width"		"512"
+	"Height"	"512"
+}

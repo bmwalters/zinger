@@ -1,201 +1,72 @@
+local meta = FindMetaTable("Player")
 
-// get player metatable
-local meta = FindMetaTable( "Player" );
-assert( meta );
-
-/*------------------------------------
-	InstallDT()
-------------------------------------*/
-function meta:InstallDT()
-
-	// create datatable
-	self:InstallDataTable();
-	
-	// ball entity
-	self:DTVar( "Entity", 0, "Ball" );
-	self.dt.Ball = NULL;
-	
-	// camera entity
-	self:DTVar( "Entity", 1, "Camera" );
-	self.dt.Camera = NULL;
-	
-	// enable hit flag
-	self:DTVar( "Bool", 0, "CanHit" );
-	self.dt.CanHit = false;
-	
-	// number of strokes we have
-	self:DTVar( "Float", 0, "Strokes" );
-	
-end
-
-
-/*------------------------------------
-	GetBall()
-------------------------------------*/
 function meta:GetBall()
-
-	// validate datatable vars
-	if ( !self.dt ) then
-	
-		return NULL;
-		
-	end
-	
-	return self.dt.Ball;
-
+	return self:GetNWEntity("Ball", NULL)
 end
 
-
-/*------------------------------------
-	GetCamera()
-------------------------------------*/
 function meta:GetCamera()
-
-	// validate datatable vars
-	if ( !self.dt ) then
-	
-		return NULL;
-		
-	end
-	
-	return self.dt.Camera;
-
+	return self:GetNWEntity("Camera", NULL)
 end
 
-
-/*------------------------------------
-	GetStrokes()
-------------------------------------*/
 function meta:GetStrokes()
-
-	// validate datatable vars
-	if ( !self.dt ) then
-	
-		return 0;
-		
-	end
-	
-	return self.dt.Strokes;
-	
+	return self:GetNWFloat("Strokes", 0)
 end
 
-
-/*------------------------------------
-	CanHit()
-------------------------------------*/
 function meta:CanHit()
-
-	// validate datatable vars
-	if ( !self.dt ) then
-	
-		return false;
-		
-	end
-	
-	return self.dt.CanHit;
-
+	return self:GetNWBool("CanHit", false)
 end
 
-
-/*------------------------------------
-	Alive()
-------------------------------------*/
-function meta:Alive()
-
-	return true;
-
+function meta:Alive() -- Override
+	return true
 end
 
-
-/*------------------------------------
-	GetCursorVector()
-------------------------------------*/
 function meta:GetCursorVector()
-
-	return ( self.CursorAim or self:GetAimVector() );
-
+	return (self.CursorAim or self:GetAimVector())
 end
 
-
-/*------------------------------------
-	UpdateAimVector()
-------------------------------------*/
 function meta:UpdateAimVector()
+	local camera = self:GetCamera()
+	if not IsValid(camera) then return end
 
-	// validate camera
-	local camera = self:GetCamera();
-	if ( !IsValid( camera ) ) then
-	
-		return;
-		
-	end
-	
-	// update players position
-	local pos = camera:GetPos();
-	local viewdir = self:GetAimVector();
-	local cmd = self:GetCurrentCommand();
-	pos = pos - viewdir * cmd:GetMouseX();
-	
-	// calculate the cursor aim vector
-	self.CursorAim = Vector( cmd:GetForwardMove(), cmd:GetSideMove(), cmd:GetUpMove() );
-	if ( !cmd:KeyDown( IN_CANCEL ) && IsBall( camera ) ) then
-		
-		// trace players view
-		self:SetFOV( 80 );
-		local trace = {};
-		trace.start = pos;
-		trace.endpos = pos + ( self:GetCursorVector() * 4096 );
-		trace.filter = { camera, self };
-		trace.mask = MASK_NPCWORLDSTATIC;
-		local tr = util.TraceLine( trace );
-		
-		// calculate direction
-		local dir = ( ( tr.HitPos + Vector( 0, 0, camera.Size ) ) - camera:GetPos() );
-		dir:Normalize();
-		
-		// update aim
-		camera:SetAimVector( dir );
-		
-	end
+	-- update player's position
+	local pos = camera:GetPos()
+	local viewdir = self:GetAimVector()
+	local cmd = self:GetCurrentCommand()
+	pos = pos - viewdir * cmd:GetMouseX()
 
+	-- calculate the cursor aim vector
+	self.CursorAim = Vector(cmd:GetForwardMove(), cmd:GetSideMove(), cmd:GetUpMove())
+	if not cmd:KeyDown(IN_CANCEL) and IsBall(camera) then
+		-- trace players view
+		self:SetFOV(80)
+		local trace = {}
+		trace.start = pos
+		trace.endpos = pos + (self:GetCursorVector() * 4096)
+		trace.filter = {camera, self}
+		trace.mask = MASK_NPCWORLDSTATIC
+		local tr = util.TraceLine(trace)
+
+		-- calculate direction
+		local dir = ((tr.HitPos + Vector(0, 0, camera.Size)) - camera:GetPos())
+		dir:Normalize()
+
+		-- update aim
+		camera:SetAimVector(dir)
+	end
 end
 
-
-/*------------------------------------
-	AllowImmediateDecalPainting()
-------------------------------------*/
 function meta:AllowImmediateDecalPainting()
-
-	self.NextSprayTime = CurTime();
-	
+	self.NextSprayTime = CurTime()
 end
 
+function meta:Think() -- Override
+	if SERVER then
+		inventory.Think(self)
 
-/*------------------------------------
-	Think()
-------------------------------------*/
-function meta:Think()
-
-	if( SERVER ) then
-	
-		inventory.Think( self );
-		
-		local ball = self:GetBall();
-		if ( IsBall( ball ) && ball.OnTee ) then
-		
-			if ( CurTime() > ( ball.TeedAt + TEE_TIME ) ) then
-			
-				if ( #GAMEMODE:GetQueue( self:Team() ) > 0 ) then
-				
-					rules.Call( "FailedToTee", self, ball );
-					
-				end
-			
-			end
-		
+		local ball = self:GetBall()
+		if IsBall(ball) and ball.OnTee and (CurTime() > (ball.TeedAt + TEE_TIME)) and #GAMEMODE:GetQueue(self:Team()) > 0 then
+			rules.Call("FailedToTee", self, ball)
 		end
-		
 	end
-
 end
 

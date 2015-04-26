@@ -1,60 +1,31 @@
+include("shared.lua")
 
-// manifest
-include( 'manifest.lua' );
-
-
-/*------------------------------------
-	Initialize()
-------------------------------------*/
 function GM:Initialize()
 end
 
-
-/*------------------------------------
-	InitPostEntity()
-------------------------------------*/
 function GM:InitPostEntity()
+	-- create round controller
+	local rc = ents.Create("zing_round_controller")
+	rc:Spawn()
 
-	// create round controller
-	local rc = ents.Create( "zing_round_controller" );
-	rc:Spawn();
-	
-	// wait for players
-	self:SetRoundState( ROUND_WAITING );
-	self:UpdateGameplay();
-	
-	// build the course
-	self:GenerateCourse();
+	-- wait for players
+	self:SetRoundState(ROUND_WAITING)
+	self:UpdateGameplay()
 
+	-- build the course
+	self:GenerateCourse()
 end
 
-
-/*------------------------------------
-	FinishMove()
-------------------------------------*/
-function GM:FinishMove( pl, mv )
+function GM:FinishMove(ply, mv)
 end
 
-
-/*------------------------------------
-	ShowHelp()
-------------------------------------*/
-function GM:ShowHelp( pl )
-
-	// pass back to client
-	pl:ConCommand( "zingerhelp" );
-	
+function GM:ShowHelp(ply)
+	-- pass back to client
+	ply:ConCommand("zinger_help")
 end
 
-
-/*------------------------------------
-	PlaySound()
-------------------------------------*/
-function GM:PlaySound( sound, filter )
-	
-	// start match music
-	umsg.Start( "PlaySound", filter );
-		umsg.String( sound );
-	umsg.End();
-
+function GM:PlaySound(snd, players)
+	net.Start("Zing_PlaySound")
+		net.WriteString(snd)
+	net.Send(players)
 end

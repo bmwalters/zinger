@@ -13,5 +13,4 @@
 	"zinger/decals/scorch10"	"1"
 	"zinger/decals/scorch11"	"1"
 	"zinger/decals/scorch12"	"1"
-
 }

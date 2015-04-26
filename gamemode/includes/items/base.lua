@@ -1,201 +1,105 @@
+local BaseItem = {}
 
-local BaseItem = {};
-
-
-/*------------------------------------
-	__index()
-------------------------------------*/
-function BaseItem.__index( obj, key )
-
-	// get the key off the object if it exists
-	// functions, etc
-	local value = rawget( obj, key );
-	if( value ) then
-		return value;
-	end
-	
-	// fetch off the item table
-	local pl = rawget( obj, "Player" );
-	if( IsValid( pl ) ) then
-	
-		return rawget( items.GetTable( pl, obj ), key );
-	
+function BaseItem.__index(obj, k)
+	-- get the key off the object if it exists
+	-- functions, etc
+	local value = rawget(obj, k) or BaseItem[k]
+	if value then
+		return value
 	end
 
+	-- fetch off the item table
+	local ply = rawget(obj, "Player")
+	if IsValid(ply) then
+		return rawget(items.GetTable(ply, obj), k)
+	end
 end
 
-
-/*------------------------------------
-	__newindex()
-------------------------------------*/
-function BaseItem.__newindex( obj, key, value )
-
-	// fetch off the item table
-	local pl = rawget( obj, "Player" );
-	if( IsValid( pl ) ) then
-	
-		rawset( items.GetTable( pl, obj ), key, value );
-		
+function BaseItem.__newindex(obj, k, v)
+	-- fetch off the item table
+	local ply = rawget(obj, "Player")
+	if IsValid(ply) then
+		rawset(items.GetTable(ply, obj), k, v)
 	else
-	
-		rawset( obj, key, value );
-	
+		rawset(obj, k, v)
 	end
-
 end
 
-
-/*------------------------------------
-	Create()
-------------------------------------*/
 function BaseItem:Create()
+	local obj = setmetatable({}, self)
 
-	local obj = table.Inherit( {}, self );
-	setmetatable( obj, self );
+	-- defaults
+	obj.Name = "Base"
+	obj.Description = "none"
+	obj.ViewModelSkin = 0
+	obj.Ball = NULL
+	obj.Player = NULL
+	obj.IsItem = true
 
-	// defaults
-	obj.Name = "Base";
-	obj.Description = "none";
-	obj.ViewModelSkin = 0;
-	obj.Ball = NULL;
-	obj.Player = NULL;
-	obj.IsItem = true;
-	
-	return obj;
-
+	return obj
 end
 
-
-/*------------------------------------
-	Initialize()
-------------------------------------*/
 function BaseItem:Initialize()
-
-	self.ConVar = CreateConVar( "zing_item_" .. self.Key, "0", FCVAR_NONE );
-
+	self.ConVar = CreateConVar("zing_item_" .. self.Key, "0", FCVAR_NONE)
 end
 
-
-/*------------------------------------
-	Activate()
-------------------------------------*/
 function BaseItem:Activate()
 end
 
-
-/*------------------------------------
-	Deactivate()
-------------------------------------*/
 function BaseItem:Deactivate()
 end
 
-
-/*------------------------------------
-	Think()
-------------------------------------*/
 function BaseItem:Think()
-
-	return false;
-	
+	return false
 end
 
-
-/*------------------------------------
-	GetTrace()
-------------------------------------*/
 function BaseItem:GetTrace()
+	-- we use an 80 degree fov
+	-- we need to set it before tracing otherwise the trace will be off
+	self.Player:SetFOV(80)
 
-	// we use an 80 degree fov
-	// we need to set it before tracing otherwise the trace will be off
-	self.Player:SetFOV( 80 );
-	
-	local tr = util.TraceLine( {
+	local tr = util.TraceLine({
 		start = self.Player:GetPos(),
 		endpos = self.Player:GetPos() + self.Player:GetCursorVector() * 4096,
 		filter = self.Player,
-	
-	} );
+	})
 
-	return tr;
-
+	return tr
 end
 
-
-/*------------------------------------
-	GetWeaponPosition()
-------------------------------------*/
 function BaseItem:GetWeaponPosition()
-
-	return self.Ball:GetWeaponPosition();
-
+	return self.Ball:GetWeaponPosition()
 end
 
-
-/*------------------------------------
-	GetViewModel()
-------------------------------------*/
 function BaseItem:GetViewModel()
-
-	return self.Ball.dt.ViewModel;
-
+	return self.Ball.dt.ViewModel
 end
 
-
-/*------------------------------------
-	GetAimVector()
-------------------------------------*/
 function BaseItem:GetAimVector()
-
-	return self.Ball.AimVec;
-
+	return self.Ball.AimVec
 end
 
-
-/*------------------------------------
-	ItemAlert()
-------------------------------------*/
-function BaseItem:ItemAlert( message )
-
-	self.Player:ItemAlert( message );
-
+function BaseItem:ItemAlert(message)
+	self.Player:ItemAlert(message)
 end
 
-
-/*------------------------------------
-	Notify()
-------------------------------------*/
-function BaseItem:Notify( filter )
-
-	umsg.Start( "AddNotfication", filter );
-		umsg.Char( NOTIFY_ITEMACTION );
-		umsg.Entity( self.Player );
-		umsg.String( self.Key );
-	umsg.End();
-
+function BaseItem:Notify(players)
+	net.Start("Zing_AddNotfication")
+		net.WriteUInt(NOTIFY_ITEMACTION, 4)
+		net.WriteEntity(self.Player)
+		net.WriteString(self.Key)
+	net.Send(players)
 end
 
-
-/*------------------------------------
-	SetViewModelAnimation()
-------------------------------------*/
-function BaseItem:SetViewModelAnimation( anim, speed )
-
-	return self.Player:SetViewModelAnimation( anim, speed );
-
+function BaseItem:SetViewModelAnimation(anim, speed)
+	return self.Player:SetViewModelAnimation(anim, speed)
 end
 
+function CreateItem(key)
+	local obj = BaseItem:Create()
+	obj.Key = key
 
-/*------------------------------------
-	CreateItem()
-------------------------------------*/
-function CreateItem( key )
+	obj:Initialize()
 
-	local obj = BaseItem:Create();
-	obj.Key = key;
-	
-	obj:Initialize();
-	
-	return obj;
-
+	return obj
 end
-

@@ -1,112 +1,59 @@
+local BaseCondition = {}
 
-local BaseCondition = {};
-
-
-/*------------------------------------
-	__index()
-------------------------------------*/
-function BaseCondition.__index( obj, key )
-
-	// get the key off the object if it exists
-	// functions, etc
-	local value = rawget( obj, key );
-	if( value ) then
-		return value;
-	end
-	
-	// fetch off the item table
-	local pl = rawget( obj, "Player" );
-	if( IsValid( pl ) ) then
-	
-		return rawget( conditions.GetTable( pl, obj ), key );
-	
+function BaseCondition.__index(obj, k)
+	-- get the key off the object if it exists
+	-- functions, etc
+	local value = rawget(obj, k) or BaseCondition[k]
+	if value then
+		return value
 	end
 
+	-- fetch off the item table
+	local ply = rawget(obj, "Player")
+	if IsValid(ply) then
+		return rawget(conditions.GetTable(ply, obj), k)
+	end
 end
 
-
-/*------------------------------------
-	__newindex()
-------------------------------------*/
-function BaseCondition.__newindex( obj, key, value )
-
-	// fetch off the item table
-	local pl = rawget( obj, "Player" );
-	if( IsValid( pl ) ) then
-	
-		rawset( conditions.GetTable( pl, obj ), key, value );
-		
+function BaseCondition.__newindex(obj, k, v)
+	-- fetch off the item table
+	local ply = rawget(obj, "Player")
+	if IsValid(ply) then
+		rawset(conditions.GetTable(ply, obj), k, v)
 	else
-	
-		rawset( obj, key, value );
-	
+		rawset(obj, k, v)
 	end
-
 end
 
-
-/*------------------------------------
-	Create()
-------------------------------------*/
 function BaseCondition:Create()
+	local obj = setmetatable({}, self)
 
-	local obj = table.Inherit( {}, self );
-	setmetatable( obj, self );
+	-- defaults
+	obj.Name = "Base"
+	obj.Ball = NULL
+	obj.Player = NULL
+	obj.IsCondition = true
 
-	// defaults
-	obj.Name = "Base";
-	obj.Ball = NULL;
-	obj.Player = NULL;
-	obj.IsCondition = true;
-	
-	return obj;
-
+	return obj
 end
 
-
-/*------------------------------------
-	Activate()
-------------------------------------*/
 function BaseCondition:Activate()
 end
 
-
-/*------------------------------------
-	Reactivate()
-------------------------------------*/
 function BaseCondition:Reactivate()
-
-	return false;
-	
+	return false
 end
 
-
-/*------------------------------------
-	Deactivate()
-------------------------------------*/
 function BaseCondition:Deactivate()
 end
 
-
-/*------------------------------------
-	Think()
-------------------------------------*/
 function BaseCondition:Think()
-
-	return false;
-	
+	return false
 end
 
+function CreateCondition(key)
+	local obj = BaseCondition:Create()
+	obj.Key = key
 
-/*------------------------------------
-	CreateCondition()
-------------------------------------*/
-function CreateCondition( key )
-
-	local obj = BaseCondition:Create();
-	obj.Key = key;
-	
-	return obj;
-
+	return obj
 end
-

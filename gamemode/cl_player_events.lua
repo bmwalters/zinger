@@ -1,104 +1,55 @@
-
-/*------------------------------------
-	TeamChangeNotification()
-------------------------------------*/
-function GM:TeamChangeNotification( pl, oldteam, newteam )
-
-	self:ChatText( pl:UserID(), pl:Name(), pl:Name() .. " changed team to " .. team.GetName( newteam ), "team" );
-	
+function GM:TeamChangeNotification(ply, oldteam, newteam)
+	self:ChatText(ply:UserID(), ply:Name(), ply:Name() .. " changed team to " .. team.GetName(newteam), "team")
 end
 
-
-/*------------------------------------
-	CleanUp()
-------------------------------------*/
-local function CleanUp( msg )
-
-	RunConsoleCommand( "r_cleardecals" );
-	hud.RemoveHints();
-	
+local function Cleanup()
+	RunConsoleCommand("r_cleardecals")
+	hud.RemoveHints()
 end
-usermessage.Hook( "CleanUp", CleanUp );
+net.Receive("Zing_Cleanup", Cleanup)
 
-
-/*------------------------------------
-	PlaySound()
-------------------------------------*/
-local function PlaySound( msg )
-
-	SND( msg:ReadString() );
-	
+local function PlaySound()
+	surface.PlaySound(net.ReadString())
 end
-usermessage.Hook( "PlaySound", PlaySound );
+net.Receive("Zing_PlaySound", PlaySound)
 
-
-/*------------------------------------
-	TeeTime()
-------------------------------------*/
-local function TeeTime( msg )
-
-	GAMEMODE.StrokeIndicator:SetTeeTime( msg:ReadChar() );
-
+local function TeeTime()
+	GAMEMODE.StrokeIndicator:SetTeeTime(net.ReadBit())
 end
-usermessage.Hook( "TeeTime", TeeTime );
+net.Receive("Zing_TeeTime", TeeTime)
 
+local function AddNotfication()
+	local typ = net.ReadUInt(4)
+	if typ == NOTIFY_RING then
+		GAMEMODE:AddNotification(net.ReadEntity(), "activated", net.ReadEntity())
+		return
+	elseif typ == NOTIFY_CRATE then
+		GAMEMODE:AddNotification(net.ReadEntity(), "picked up", items.Get(net.ReadString()))
+		return
+	elseif typ == NOTIFY_ITEMACTION then
+		local ply = net.ReadEntity()
+		local item = items.Get(net.ReadUInt(8))
 
-/*------------------------------------
-	AddNotfication()
-------------------------------------*/
-local function AddNotfication( msg )
+		GAMEMODE:AddNotification(ply, item.ActionText, item)
+		return
+	elseif typ == NOTIFY_ITEMPLAYER then
+		local ply = net.ReadEntity()
+		local item = items.Get(net.ReadUInt(8)) -- was String but sending Char??
 
-	local t = msg:ReadChar();
-	if ( t == NOTIFY_RING ) then
-	
-		GAMEMODE:AddNotification( msg:ReadEntity(), "activated", msg:ReadEntity() );
-		return;
-		
-	elseif ( t == NOTIFY_CRATE ) then
-	
-		GAMEMODE:AddNotification( msg:ReadEntity(), "picked up", items.Get( msg:ReadString() ) );
-		return;
-		
-	elseif ( t == NOTIFY_ITEMACTION ) then
-	
-		local pl = msg:ReadEntity();
-		local item = items.Get( msg:ReadString() );
-	
-		GAMEMODE:AddNotification( pl, item.ActionText, item );
-		return;
-		
-	elseif ( t == NOTIFY_ITEMPLAYER ) then
-	
-		local pl = msg:ReadEntity();
-		local item = items.Get( msg:ReadString() );
-	
-		GAMEMODE:AddNotification( pl, item.ActionText, msg:ReadEntity(), "with", item );
-		return;
-		
-	elseif ( t == NOTIFY_SINKCUP ) then
-	
-		GAMEMODE:AddNotification( msg:ReadEntity(), "reached the", msg:ReadEntity() );
-		return;
-	
+		GAMEMODE:AddNotification(ply, item.ActionText, net.ReadEntity(), "with", item)
+		return
+	elseif t == NOTIFY_SINKCUP then
+		GAMEMODE:AddNotification(net.ReadEntity(), "reached the", net.ReadEntity())
+		return
 	end
-	
 end
-usermessage.Hook( "AddNotfication", AddNotfication );
+net.Receive("Zing_AddNotfication", AddNotfication)
 
-
-/*------------------------------------
-	ItemAlert()
-------------------------------------*/
-local function ItemAlert( msg )
-
-	GAMEMODE:ItemAlert( msg:ReadString() );
-	
+local function ItemAlert(msg)
+	GAMEMODE:ItemAlert(net.ReadString())
 end
-usermessage.Hook( "ItemAlert", ItemAlert );
+net.Receive("Zing_ItemAlert", ItemAlert)
 
 
-/*------------------------------------
-	ShowTeam()
-------------------------------------*/
 function GM:ShowTeam()
 end

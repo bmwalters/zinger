@@ -1,233 +1,121 @@
+local meta = FindMetaTable("Player")
 
-// get player metatable
-local meta = FindMetaTable( "Player" );
-assert( meta );
+AccessorFunc(meta, "Ball", "Ball")
+AccessorFunc(meta, "LoadoutState", "LoadoutState")
 
-// accessors
-AccessorFunc( meta, "Ball", "Ball" );
-AccessorFunc( meta, "LoadoutState", "LoadoutState" );
-
-
-/*------------------------------------
-	SpawnBall()
-------------------------------------*/
 function meta:SpawnBall()
+	local color = team.GetColor(self:Team())
 
-	// get team color
-	local color = team.GetColor( self:Team() );
-	
-	// create ball
-	local ball = ents.Create( "zing_ball" );
-	ball:Spawn();
-	
-	// save
-	self:SetBall( ball );
-	ball:SetOwner( self );
-	
-	self:SetMoveType( MOVETYPE_NONE );
-	
-	return ball;
+	local ball = ents.Create("zing_ball")
+	ball:Spawn()
 
+	-- save
+	self:SetBall(ball)
+	ball:SetOwner(self)
+
+	self:SetMoveType(MOVETYPE_NONE)
+
+	return ball
 end
 
 
-/*------------------------------------
-	HitBall()
-------------------------------------*/
-function meta:HitBall( dir, power )
+function meta:HitBall(dir, power)
+	local ball = self:GetBall()
+	if not IsBall(ball) then return end
 
-	// validate ball
-	local ball = self:GetBall();
-	if ( !IsBall( ball ) ) then
-	
-		return;
-	
-	end
-	
-	power = rules.Call( "BallHit", self, power );
-	
-	// hit the ball
-	ball:Hit( dir, power );
-	self:SetCanHit( false );
-	
-	// clear notification
-	umsg.Start( "TeeTime", self );
-		umsg.Char( 0 );
-	umsg.End();
-	
+	power = rules.Call("BallHit", self, power)
+
+	-- hit the ball
+	ball:Hit(dir, power)
+	self:SetCanHit(false)
+
+	-- clear notification
+	net.Start("Zing_TeeTime")
+		net.WriteBit(0)
+	net.Send(self)
 end
 
 
-/*------------------------------------
-	SetBall()
-------------------------------------*/
-function meta:SetBall( ent )
+function meta:SetBall(ent)
+	-- neuter them first!
+	SafeRemoveEntity(self:GetBall())
 
-	// neuter them first!
-	SafeRemoveEntity( self.dt.Ball );
-	
-	self.dt.Ball = ent;
-
+	self:SetNWEntity("Ball", ent)
 end
 
 
-/*------------------------------------
-	SetCamera()
-------------------------------------*/
-function meta:SetCamera( ent )
-	
-	self.dt.Camera = ent;
-
+function meta:SetCamera(ent)
+	self:SetNWEntity("Camera", ent)
 end
 
 
-/*------------------------------------
-	SetStrokes()
-------------------------------------*/
-function meta:SetStrokes( num )
-	
-	self.dt.Strokes = num;
-	
-	self:SetDeaths( math.max( 0, num ) );
+function meta:SetStrokes(num)
+	self:SetNWFloat("Strokes", num)
 
+	self:SetDeaths(math.max(0, num))
 end
 
-
-/*------------------------------------
-	AddStroke()
-------------------------------------*/
 function meta:AddStroke()
-
-	self:SetStrokes( self.dt.Strokes + 1 );
-	
+	self:SetStrokes(self:GetStrokes() + 1)
 end
 
-
-/*------------------------------------
-	RemoveStroke()
-------------------------------------*/
 function meta:RemoveStroke()
-
-	self:SetStrokes( self.dt.Strokes - 1 );
-	
+	self:SetStrokes(self:GetStrokes() - 1)
 end
 
 
-/*------------------------------------
-	SetCanHit()
-------------------------------------*/
-function meta:SetCanHit( bool )
-
-	self.dt.CanHit = bool;
-
+function meta:SetCanHit(canhit)
+	self:SetNWBool("CanHit", num)
 end
 
 
-/*------------------------------------
-	AddPoints()
-------------------------------------*/
-function meta:AddPoints( amt )
-
-	GAMEMODE:AddPoints( self, amt );
-
+function meta:AddPoints(amt)
+	GAMEMODE:AddPoints(self, amt)
 end
 
 
-/*------------------------------------
-	ActivateViewModel()
-------------------------------------*/
-function meta:ActivateViewModel( model, skin, locked )
+function meta:ActivateViewModel(model, skin, locked)
+	local ball = self:GetBall()
+	if not IsBall(ball) then return end
 
-	// validate ball
-	local ball = self:GetBall();
-	if( !IsBall( ball ) ) then
-	
-		return;
-	
-	end
-	
-	// validate model
-	local viewmodel = ball.dt.ViewModel;
-	if( !IsValid( viewmodel ) ) then
-	
-		return;
-	
-	end
-	
-	viewmodel:SetModel( model );
-	viewmodel:SetNoDraw( false );
-	viewmodel:DrawShadow( true );
-	viewmodel:SetSkin( skin or 0 );
-	viewmodel:SetPitchLocked( locked or false );
-	viewmodel:ResetSequence( 0 );
+	local viewmodel = ball.dt.ViewModel
+	if not IsValid(viewmodel) then return end
 
+	viewmodel:SetModel(model)
+	viewmodel:SetNoDraw(false)
+	viewmodel:DrawShadow(true)
+	viewmodel:SetSkin(skin or 0)
+	viewmodel:SetPitchLocked(locked or false)
+	viewmodel:ResetSequence(0)
 end
 
+function meta:SetViewModelAnimation(anim, speed)
+	local ball = self:GetBall()
+	if not IsBall(ball) then return 0 end
 
+	local viewmodel = ball.dt.ViewModel
+	if not IsValid(viewmodel) then return 0 end
 
-/*------------------------------------
-	SetViewModelAnimation()
-------------------------------------*/
-function meta:SetViewModelAnimation( anim, speed )
+	viewmodel:ResetSequence(viewmodel:LookupSequence(anim))
+	viewmodel:SetPlaybackRate(speed or 1)
 
-	// validate ball
-	local ball = self:GetBall();
-	if( !IsBall( ball ) ) then
-	
-		return 0;
-	
-	end
-	
-	// validate model
-	local viewmodel = ball.dt.ViewModel;
-	if( !IsValid( viewmodel ) ) then
-	
-		return 0;
-	
-	end
-	
-	viewmodel:ResetSequence( viewmodel:LookupSequence( anim ) );
-	viewmodel:SetPlaybackRate( speed or 1 );
-	
-	return viewmodel:SequenceDuration();
-
+	return viewmodel:SequenceDuration()
 end
 
-
-/*------------------------------------
-	DeactivateViewModel()
-------------------------------------*/
 function meta:DeactivateViewModel()
+	local ball = self:GetBall()
+	if not IsBall(ball) then return end
 
-	// validate ball
-	local ball = self:GetBall();
-	if( !IsBall( ball ) ) then
-	
-		return;
-	
-	end
-	
-	// validate model
-	local viewmodel = ball.dt.ViewModel;
-	if( !IsValid( viewmodel ) ) then
-	
-		return;
-	
-	end
-	
-	viewmodel:SetNoDraw( true );
-	viewmodel:DrawShadow( false );
+	local viewmodel = ball.dt.ViewModel
+	if not IsValid(viewmodel) then return end
 
+	viewmodel:SetNoDraw(true)
+	viewmodel:DrawShadow(false)
 end
 
 
-/*------------------------------------
-	ItemAlert()
-------------------------------------*/
-function meta:ItemAlert( text )
-
-	umsg.Start( "ItemAlert", self );
-		umsg.String( text );
-	umsg.End();
-
+function meta:ItemAlert(text)
+	net.Start("Zing_ItemAlert")
+		net.WriteString(text)
+	net.Send(self)
 end
