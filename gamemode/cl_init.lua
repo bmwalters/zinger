@@ -4,7 +4,7 @@ require("controls")
 require("music")
 require("hud")
 
-game.AddParticles("zinger.pcf")
+game.AddParticles("particles/zinger.pcf")
 
 local simpleoutline = CreateClientConVar("cl_zing_simpleoutline", "0", true, false)
 local fpstest = CreateConVar("cl_zing_fpstest", "0", {FCVAR_CHEAT})

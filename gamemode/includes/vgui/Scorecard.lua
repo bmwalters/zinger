@@ -94,8 +94,7 @@ function PANEL:Paint(w, h)
 
 	-- draw.SimpleText("Current Hole: " .. RoundController():GetCurrentHole(), "Zing22", 260, 110, color_black, TEXT_ALIGN_LEFT, TEXT_ALIGN_TOP)
 
-	local t = team.GetName(self.CurrentTeam)
-	draw.SimpleTextOutlined(t, "Zing42", w * 0.5, 145, t, TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, color_black)
+	draw.SimpleTextOutlined(team.GetName(self.CurrentTeam), "Zing42", w * 0.5, 145, team.GetColor(self.CurrentTeam), TEXT_ALIGN_CENTER, TEXT_ALIGN_CENTER, 2, color_black)
 end
 
 derma.DefineControl("Scorecard", "", PANEL, "DPanel")

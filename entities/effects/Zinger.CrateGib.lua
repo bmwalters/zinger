@@ -1,6 +1,6 @@
 function EFFECT:Init(data)
 	local pos = data:GetOrigin()
-	local angle = data:GetAngle()
+	local angle = data:GetAngles()
 	local normal = data:GetNormal()
 
 	self.Entity:SetModel("models/zinger/crategib.mdl")
@@ -14,7 +14,7 @@ function EFFECT:Init(data)
 	local phys = self.Entity:GetPhysicsObject()
 	if IsValid(phys) then
 		phys:Wake()
-		phys:SetAngle(angle)
+		phys:SetAngles(angle)
 		phys:SetDamping(0.8, 0.8)
 		phys:AddAngleVelocity(VectorRand() * 200)
 		phys:SetVelocity(normal * 50)

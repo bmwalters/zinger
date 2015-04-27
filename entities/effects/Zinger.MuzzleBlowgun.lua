@@ -1,6 +1,6 @@
 function EFFECT:Init(data)
 	local pos = data:GetOrigin()
-	local angle = data:GetAngle()
+	local angle = data:GetAngles()
 	local normal = data:GetNormal()
 	local ball = data:GetEntity()
 

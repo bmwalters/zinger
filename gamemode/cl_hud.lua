@@ -119,13 +119,14 @@ function GM:FinishChat()
 end
 
 function GM:OnPlayerChat(ply, text, t, dead)
+	if not self.ChatArea then return end
+
 	self.ChatArea:OnPlayerChat(ply, text, t, dead)
 end
 
 function GM:ChatText(pid, name, text, msgtype)
-	if msgtype == "chat" then
-		return
-	end
+	if msgtype == "chat" then return end
+	if not self.ChatArea then return end
 
 	self.ChatArea:ChatText(pid, name, text, msgtype)
 end

@@ -57,7 +57,7 @@ local function Toggle(ply, cmd, args)
 		end
 	end
 end
-concommand.Add("edithud", Toggle)
+concommand.Add("zinger_edithud", Toggle)
 
 function RemoveHint(index)
 	HintEnts[index]:Remove() -- -Zerf

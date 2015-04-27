@@ -56,7 +56,7 @@ function PANEL:Init()
 	self.CurrentCategory = nil
 
 	-- load help
-	for _, f in pairs(file.Find("zinger/help/*.txt", "DATA")) do
+	for _, f in pairs(file.Find("zinger/gamemode/includes/help/*", "LUA")) do
 		self:LoadHelpFile(f)
 	end
 end
@@ -149,14 +149,12 @@ function PANEL:CreateHelpTopic(category, title, text, index)
 end
 
 function PANEL:LoadHelpFile(f)
-	local d = file.Read("zinger/help/" .. f)
-	local text = string.Explode("\n", d)
-	local category, title, index = unpack(string.Explode(":", text[1]))
-	index = tonumber(index)
-	table.remove(text, 1)
-	text = table.concat(text, "\n")
+	HELP = {}
 
-	self:CreateHelpTopic(category, title, text, index)
+	include("zinger/gamemode/includes/help/" .. f)
+	self:CreateHelpTopic(HELP.category, HELP.title, HELP.text, HELP.index)
+
+	HELP = nil
 end
 
 function PANEL:LoadComplete()

@@ -31,6 +31,10 @@ if SERVER then
 	AddCSLuaFile("sh_roundinfo.lua")
 	AddCSLuaFile("sh_util_extension.lua")
 
+	for _, f in pairs(file.Find("zinger/gamemode/includes/help/*", "LUA")) do
+		AddCSLuaFile("zinger/gamemode/includes/help/"..f)
+	end
+
 	include("sv_resources.lua")
 	include("sv_battlestats.lua")
 	include("sv_bot.lua")

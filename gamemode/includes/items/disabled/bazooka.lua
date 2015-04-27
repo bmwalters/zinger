@@ -59,7 +59,7 @@ function ITEM:Activate()
 		local effect = EffectData()
 		effect:SetNormal(dir)
 		effect:SetOrigin(pos)
-		effect:SetAngle(ang)
+		effect:SetAngles(ang)
 		effect:SetEntity(self.Ball)
 		util.Effect("Zinger.MuzzleBazooka", effect)
 

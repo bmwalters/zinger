@@ -50,7 +50,7 @@ function ITEM:Activate()
 		local effect = EffectData()
 		effect:SetNormal(dir)
 		effect:SetOrigin(pos)
-		effect:SetAngle(dir:Angle())
+		effect:SetAngles(dir:Angle())
 		effect:SetEntity(self.Ball)
 		util.Effect("Zinger.MuzzleShotgun", effect)
 

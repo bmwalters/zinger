@@ -55,7 +55,7 @@ if SERVER then
 		-- gibs
 		local effect = EffectData()
 		effect:SetOrigin(self:GetPos())
-		effect:SetAngle(self:GetAngles())
+		effect:SetAngles(self:GetAngles())
 		util.Effect("Zinger.CrateBreak", effect)
 		-- sound
 		sound.Play(Sound("physics/wood/wood_box_impact_bullet1.wav"), self:GetPos(), 100, 100)
@@ -88,7 +88,7 @@ if SERVER then
 				-- gibs
 				local effect = EffectData()
 				effect:SetOrigin(self:GetPos())
-				effect:SetAngle(self:GetAngles())
+				effect:SetAngles(self:GetAngles())
 				util.Effect("Zinger.CrateBreak", effect)
 				SafeRemoveEntityDelayed(self, 0)
 			end
