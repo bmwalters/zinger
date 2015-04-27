@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "zinger/models/dart/puff"
+	"$alphatest" 1
+	"$nocull" 1
+}

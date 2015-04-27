@@ -1,0 +1,10 @@
+"VertexlitGeneric"
+{
+
+	"$basetexture" "zinger/models/ring/ring"
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[0.7 0.7 0.7]"
+	"$vertexcolor" "1"
+	"$model" "1"
+	
+}

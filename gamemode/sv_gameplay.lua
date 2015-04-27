@@ -28,6 +28,8 @@ function GM:GenerateCourse()
 			TempCourse[holeNum].SupplyNodes = {}
 			TempCourse[holeNum].PadEntities = {}
 			TempCourse[holeNum].AverageSupplyRadius = 0
+
+			print("Found cup of hole: "..holeNum)
 		end
 	end
 

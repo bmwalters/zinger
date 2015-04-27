@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "zinger/hud/flag_birdies"
+	"$vertexalpha" "1"
+	"$vertexcolor" "1"
+	"$ignorez" "1"
+}

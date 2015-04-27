@@ -1,0 +1,5 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "zinger/models/lock/lockarch"
+	"$vertexalpha" 1
+}

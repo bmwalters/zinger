@@ -1,0 +1,7 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "zinger/models/magnet/bluemagnet"
+	"$envmap" "env_cubemap"
+	"$envmaptint" "[0.5 0.5 0.5]"
+	"$bumpmap" "zinger/models/magnet/magnet_nrm"
+}

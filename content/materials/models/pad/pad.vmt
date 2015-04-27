@@ -1,0 +1,6 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "zinger/models/pad/pad"
+	"$selfillum" "1"
+	"$selfillummask" "zinger/models/pad/pad_illum"
+}

@@ -105,7 +105,9 @@ if CLIENT then
 
 		if self.ModelScale < 1 then
 			-- render model
-			self:SetModelScale(Vector() * self.ModelScale)
+			local mat = Matrix()
+			mat:Scale(Vector() * self.ModelScale)
+			self:EnableMatrix("RenderMultiply", mat)
 			self:SetupBones()
 			self:DrawModel()
 		else

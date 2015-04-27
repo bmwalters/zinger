@@ -2,6 +2,46 @@ local PANEL = {}
 
 local background_color = Color(0, 0, 0, 80)
 
+local function rebuild(self) -- todo: not this
+	local Offset = 0
+	if ( self.Horizontal ) then
+		local x, y = self.Padding, self.Padding;
+		for k, panel in pairs( self.Items ) do
+			if ( panel:IsVisible() ) then
+				local w = panel:GetWide()
+				local h = panel:GetTall()
+				if ( x + w  > self:GetWide() ) then
+					x = self.Padding
+					y = y + h + self.Spacing
+				end
+				panel:SetPos( x, y )
+				x = x + w + self.Spacing
+				Offset = y + h + self.Spacing
+			end
+		end
+	else
+		for k, panel in pairs( self.Items ) do
+			if ( panel:IsVisible() ) then
+				if ( self.m_bNoSizing ) then
+					panel:SizeToContents()
+					panel:SetPos( (self:GetCanvas():GetWide() - panel:GetWide()) * 0.5, self.Padding + Offset )
+				else
+					panel:SetSize( self:GetCanvas():GetWide() - self.Padding * 2, panel:GetTall() )
+					panel:SetPos( self.Padding, self.Padding + Offset )
+				end
+				panel:InvalidateLayout( true )
+				Offset = Offset + panel:GetTall() + self.Spacing
+			end
+		end
+		Offset = Offset + self.Padding
+	end
+	self:GetCanvas():SetTall( Offset + (self.Padding) - self.Spacing )
+	self:GetCanvas():AlignBottom( self.Spacing )
+	if ( self.m_bNoSizing && self:GetCanvas():GetTall() < self:GetTall() ) then
+		self:GetCanvas():SetPos( 0, (self:GetTall()-self:GetCanvas():GetTall()) * 0.5 )
+	end
+end
+
 function PANEL:Init()
 	-- should always be first
 	self.BaseClass.Init(self)
@@ -38,8 +78,9 @@ function PANEL:Init()
 	self.TextInput:SetExpensiveShadow(1, color_black)
 
 	-- chat history
-	self.History = vgui.Create("DListLayout", self)
+	self.History = vgui.Create("DPanelList", self)
 	self.History:SetSize(500, 120)
+	self.History.Rebuild = rebuild
 	self.History:SetDrawBackground(false)
 
 	-- defaults
@@ -131,7 +172,7 @@ function PANEL:OnPlayerChat(pl, text, t, dead)
 
 	-- add after 1 frame
 	timer.Simple(FrameTime() + 0.001, function()
-		self.History:Add(v)
+		self.History:AddItem(v)
 	end)
 end
 
@@ -153,7 +194,7 @@ function PANEL:ChatText(pid, name, text, msgtype)
 
 	-- add after 1 frame
 	timer.Simple(FrameTime() + 0.001, function()
-		self.History:Add(l)
+		self.History:AddItem(l)
 	end)
 end
 

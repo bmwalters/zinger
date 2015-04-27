@@ -1,0 +1,6 @@
+"UnlitGeneric"
+{
+	"$basetexture" "zinger/hud/equipinfo"
+	"$vertexalpha" 1
+	"$vertexcolor" 1
+}

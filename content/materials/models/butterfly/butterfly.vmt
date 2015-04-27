@@ -1,0 +1,7 @@
+"VertexlitGeneric"
+{
+	"$basetexture" "zinger/models/butterfly/butterfly"
+	"$alphatest" 1
+	"$nocull" 1
+	"$vertexcolor" 1
+}

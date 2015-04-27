@@ -1,0 +1,7 @@
+"UnlitGeneric"
+{
+	"$basetexture" "zinger/hud/items/ac130"
+	"$vertexalpha" "1"
+	"$vertexcolor" "1"
+	"$ignorez" "1"
+}
