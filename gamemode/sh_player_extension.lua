@@ -38,7 +38,7 @@ function meta:UpdateAimVector()
 	self.CursorAim = Vector(cmd:GetForwardMove(), cmd:GetSideMove(), cmd:GetUpMove())
 	if not cmd:KeyDown(IN_CANCEL) and IsBall(camera) then
 		-- trace players view
-		self:SetFOV(80)
+		self:SetFOV(80, 0)
 		local trace = {}
 		trace.start = pos
 		trace.endpos = pos + (self:GetCursorVector() * 4096)
@@ -51,7 +51,7 @@ function meta:UpdateAimVector()
 		dir:Normalize()
 
 		-- update aim
-		camera:SetAimVector(dir)
+		camera:SetAngles(dir:Angle()) -- -Zerf
 	end
 end
 

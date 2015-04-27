@@ -106,7 +106,7 @@ if SERVER then
 			if not IsValid(ply) then return end
 
 			-- add back to queue
-			GAMEMODE:AddToQueue(pl, true)
+			GAMEMODE:AddToQueue(ply, true)
 		end)
 	end
 
@@ -199,9 +199,9 @@ if SERVER then
 		if speed < 15 then
 			-- make sure we've stopped for the minimal amount of time
 			if CurTime() - self.LastMove > rules.Call("GetStopTime") then
-				if not pl:CanHit() then
+				if not ply:CanHit() then
 					-- call event
-					rules.Call("EnableHit", pl, self)
+					rules.Call("EnableHit", ply, self)
 				end
 			end
 		else

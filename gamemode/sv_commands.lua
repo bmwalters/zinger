@@ -142,9 +142,7 @@ local debugcmds = {
 
 local function ZingerDebug(ply, cmd, args) -- just some basic debug utils
 	-- super admins only
-	if (not ply:IsSuperAdmin() or not args[1] or not Dev()) then
-		return
-	end
+	if (IsValid(ply) and not ply:IsSuperAdmin()) or not args[1] then return end
 
 	-- grab action
 	local action = string.lower(args[1] or "")

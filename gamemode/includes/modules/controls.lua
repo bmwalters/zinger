@@ -203,7 +203,7 @@ function GetCursorDirection()
 	local ply = LocalPlayer()
 	if IsValid(ply) then
 		-- hack to make sure that the trace is accurate.
-		ply:SetFOV(CurrentView.fov)
+		ply:SetFOV(CurrentView.fov, 0)
 		return ply:GetAimVector()
 	end
 
