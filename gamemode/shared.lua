@@ -85,7 +85,6 @@ for _, f in pairs(file.Find(path .. "*", "LUA")) do
 	include(path .. f)
 end
 
--- particle effects
 PrecacheParticleSystem("Zinger.Explosion")
 PrecacheParticleSystem("Zinger.BallImpact")
 PrecacheParticleSystem("Zinger.BallDrive")
@@ -116,6 +115,21 @@ PrecacheParticleSystem("Zinger.Dazed")
 PrecacheParticleSystem("Zinger.Waterfall")
 PrecacheParticleSystem("Zinger.Help")
 PrecacheParticleSystem("Zinger.HelpExplode")
+
+game.AddDecal("Zinger.Scorch", {
+	"zinger/decals/scorch1",
+	"zinger/decals/scorch2",
+	"zinger/decals/scorch3",
+	"zinger/decals/scorch4",
+	"zinger/decals/scorch5",
+	"zinger/decals/scorch6",
+	"zinger/decals/scorch7",
+	"zinger/decals/scorch8",
+	"zinger/decals/scorch9",
+	"zinger/decals/scorch10",
+	"zinger/decals/scorch11",
+	"zinger/decals/scorch12",
+})
 
 -- load vgui files
 local path = "zinger/gamemode/includes/vgui/"
