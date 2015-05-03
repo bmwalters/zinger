@@ -5,7 +5,9 @@ Zinger! is a team based fretta gamemode that combines action, adventure and stra
 
 ## Links
 [Zinger!'s 2nd place victory in the Facepunch Fretta Contest!](http://web.archive.org/web/20110710215632/http://frettacontest.facepunchstudios.com/)
+
 [Zinger! ModDB page](http://www.moddb.com/mods/zinger)
+
 [Original Zinger! Facepunch thread](http://facepunch.com/showthread.php?t=544410)
 
 ## Media
@@ -29,6 +31,12 @@ Zinger! is a team based fretta gamemode that combines action, adventure and stra
 <a href="backgrounds/zinger_16.jpg?raw=true"><img src="backgrounds/zinger_16.jpg" width="24%" ></a>
 
 [![Demo Video](http://img.youtube.com/vi/XtSgjyyvHvw/0.jpg)](http://www.youtube.com/watch?v=XtSgjyyvHvw)
+
+## Credits
+#### Original Authors:
+[cdbarrett](http://steamcommunity.com/profiles/76561197964580516/)
+
+[foszor](http://steamcommunity.com/profiles/76561197960772559/)
 
 ## Legal
 ```
