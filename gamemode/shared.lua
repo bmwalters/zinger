@@ -340,12 +340,14 @@ function GM:OnPlayerCreated(ply)
 	-- number of strokes we have
 	ply:SetNWFloat("Strokes", 0)
 
+--[[
 	if CLIENT then
-		if ply == LocalPlayer() then
+		if ply == LocalPlayer() then -- TODO: THIS IS BROKEN; AT THIS TIME LocalPlayer() IS INVALID!
 			-- local player creation hook
 			self:OnLocalPlayerCreated(ply)
 		end
 	end
+--]]
 
 	items.Install(ply)
 	inventory.Install(ply)
@@ -361,7 +363,7 @@ function GM:Think()
 	self:NatureThink()
 
 	if SERVER then
-		if (CurTime() > (self.NextUpdate or 0)) then
+		if CurTime() > (self.NextUpdate or 0) then
 			self.NextUpdate = CurTime() + 0.5
 
 			-- gameplay

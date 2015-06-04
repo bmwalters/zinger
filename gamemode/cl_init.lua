@@ -21,6 +21,7 @@ function GM:InitPostEntity()
 		-- show vgui
 		self:ShowSplash()
 	end
+	self:OnLocalPlayerCreated() -- TODO: Move this?
 end
 
 function GM:OnEntityCreated(entity)

@@ -4,6 +4,7 @@ function RoundController()
 	-- find it if needed
 	if not IsValid(RoundControllerEnt) then
 		RoundControllerEnt = ents.FindByClass("zing_round_controller")[1]
+		print("Attempted to grab RoundControllerEnt: "..tostring(IsValid(RoundControllerEnt)))
 	end
 
 	return RoundControllerEnt
