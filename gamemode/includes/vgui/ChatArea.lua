@@ -48,7 +48,7 @@ function PANEL:Init()
 	// chat history
 	self.History = vgui.Create( "DPanelList", self );
 	self.History:SetSize( 500, 120 );
-	self.History:SetBottomUp( true );
+	-- self.History:SetBottomUp( true );
 	self.History:SetDrawBackground( false );
 	
 	// defaults

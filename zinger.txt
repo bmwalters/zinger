@@ -1,0 +1,24 @@
+"zinger"
+{
+	"base"		"fretta13"
+	"title"		"Zinger!"
+	"maps"		"^zing_"
+	"menusystem"	"1"
+
+	"version"	"1"
+
+	"author_name"	"Arcadium Software"
+	"author_email"	""
+	"author_url"	"www.the-arcadium.com"
+
+	"icon"		""
+	"info"		""
+	"hide"		"0"
+
+	"fretta_maps"
+	{
+		"1"	"^zing_"
+	}
+
+	"description"	"Cartoon battle golf"
+}

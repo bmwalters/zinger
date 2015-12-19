@@ -3,13 +3,13 @@ include( 'shared.lua' );
 
 ENT.RenderGroup = RENDERGROUP_OPAQUE;
 
-local RT = GetRenderTarget( "Sign" );
+local RT = GetRenderTarget( "Sign", 512, 512 );
 local Background = CreateMaterial( "SignTexture", "UnlitGeneric", {
 	["$basetexture"] = "zinger/models/sign/sign",
 	["$nocull"] = "1",
 } );
 local SignMaterial = Material( "zinger/models/sign/sign" );
-SignMaterial:SetMaterialTexture( "$basetexture", RT );
+SignMaterial:SetTexture( "$basetexture", RT );
 
 /*------------------------------------
 	Initialize()
@@ -19,8 +19,6 @@ function ENT:Initialize()
 	self:SetRenderBounds( self:OBBMins(), self:OBBMaxs() );
 
 end
-
-surface.CreateFont( "ComickBook", 72, 400, true, false, "Zing72", false, false );
 
 /*------------------------------------
 	Draw()

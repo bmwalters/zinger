@@ -107,7 +107,7 @@ function BaseItem:GetTrace()
 
 	// we use an 80 degree fov
 	// we need to set it before tracing otherwise the trace will be off
-	self.Player:SetFOV( 80 );
+	self.Player:SetFOV( 80, 0 );
 	
 	local tr = util.TraceLine( {
 		start = self.Player:GetPos(),

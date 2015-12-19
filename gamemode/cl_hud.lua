@@ -1,13 +1,70 @@
 
 // fonts
-surface.CreateFont( "ComickBook", 14, 1, true, false, "Zing14" );
-surface.CreateFont( "ComickBook", 18, 1, true, false, "Zing18" );
-surface.CreateFont( "ComickBook", 20, 1, true, false, "Zing20" );
-surface.CreateFont( "ComickBook", 22, 1, true, false, "Zing22" );
-surface.CreateFont( "ComickBook", 30, 1, true, false, "Zing30" );
-surface.CreateFont( "ComickBook", 42, 1, true, false, "Zing42" );
-surface.CreateFont( "ComickBook", 52, 1, true, false, "Zing52" );
-surface.CreateFont( "ComickBook", 18, 100, true, false, "ZingChat" );
+surface.CreateFont("Zing14", {
+	font = "ComickBook",
+	size = 14,
+	weight = 1,
+	antialias = true,
+	additive = false,
+})
+surface.CreateFont("Zing18", {
+	font = "ComickBook",
+	size = 18,
+	weight = 1,
+	antialias = true,
+	additive = false,
+})
+surface.CreateFont("Zing20", {
+	font = "ComickBook",
+	size = 20,
+	weight = 1,
+	antialias = true,
+	additive = false,
+})
+surface.CreateFont("Zing22", {
+	font = "ComickBook",
+	size = 22,
+	weight = 1,
+	antialias = true,
+	additive = false,
+})
+surface.CreateFont("Zing30", {
+	font = "ComickBook",
+	size = 30,
+	weight = 1,
+	antialias = true,
+	additive = false,
+})
+surface.CreateFont("Zing42", {
+	font = "ComickBook",
+	size = 42,
+	weight = 1,
+	antialias = true,
+	additive = false,
+})
+surface.CreateFont("Zing52", {
+	font = "ComickBook",
+	size = 52,
+	weight = 1,
+	antialias = true,
+	additive = false,
+})
+surface.CreateFont("ZingChat", {
+	font = "ComickBook",
+	size = 18,
+	weight = 100,
+	antialias = true,
+	additive = false,
+})
+surface.CreateFont("Zing72", {
+	font = "ComickBook",
+	size = 72,
+	weight = 400,
+	antialias = true,
+	additive = false,
+	shadow = false,
+	outline = false,
+})
 
 // variables
 local LastMouseMove = CurTime();
@@ -455,10 +512,10 @@ function GM:UpdateBubble( pl )
 	end
 	
 	// run trace
-	pl:SetFOV( 80 );
+	pl:SetFOV( 80, 0 );
 	local tr = util.TraceLine( {
 		start = EyePos(),
-		endpos = EyePos() + pl:GetCursorAimVector() * ( 1024 * 3 ),
+		endpos = EyePos() + pl:GetAimVector() * ( 1024 * 3 ),
 		
 	} );
 	

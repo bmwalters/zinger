@@ -5,8 +5,8 @@ include( 'shared.lua' );
 // setup
 ENT.RenderGroup = RENDERGROUP_OPAQUE;
 
-local ColorYellow = Color( color_yellow.r, color_yellow.g, color_yellow.b, 255 );
-local ColorGold = Color( color_yellow_dark.r, color_yellow_dark.g, color_yellow_dark.b, 255 );
+local ColorYellow = Color( 255, 255, 0, 255 );
+local ColorGold = Color( 255, 215, 0, 255 );
 
 ENT.HintTopic = "Gameplay:Rings";
 

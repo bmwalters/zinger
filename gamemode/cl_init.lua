@@ -295,12 +295,12 @@ function GM:CreateMove( cmd )
 	local buttons = 0;
 	if( cmd:KeyDown( IN_USE ) ) then
 	
-		buttons = buttons | IN_USE;
+		buttons = bit.bor(buttons, IN_USE);
 		
 	end
 	if ( controls.InHitGesture() || controls.InViewGesture() ) then
 	
-		buttons = buttons | IN_CANCEL;
+		buttons = bit.bor(buttons, IN_CANCEL);
 	
 	end
 	cmd:SetButtons( buttons );
@@ -321,7 +321,7 @@ function GM:CreateMove( cmd )
 		
 		// pass the cursor aim vector to the server
 		// hidden inside the movement speeds
-		local dir = pl:GetCursorAimVector();
+		local dir = pl:GetAimVector();
 		cmd:SetForwardMove( dir.x );
 		cmd:SetSideMove( dir.y );
 		cmd:SetUpMove( dir.z );
@@ -455,28 +455,34 @@ local function DrawModelOutlinedSimple( ent, width, width2 )
 
 	// render black model
 	render.SuppressEngineLighting( true );
-	SetMaterialOverride( BlackModelSimple );
+	render.MaterialOverride( BlackModelSimple );
 
 	// render model
-	ent:SetModelScale( width );
+	local mat = Matrix() -- todo: does this do what we want?
+	mat:Scale(width)
+	ent:EnableMatrix("RenderMultiply", mat)
 	ent:SetupBones();
 	ent:DrawModel();
 	
 	// render second if needed
 	if ( width2 ) then
 	
-		ent:SetModelScale( width2 );
+		local mat = Matrix() -- todo: does this do what we want?
+		mat:Scale(width2)
+		ent:EnableMatrix("RenderMultiply", mat)
 		ent:SetupBones();
 		ent:DrawModel();
 	
 	end
 	
 	// clear
-	SetMaterialOverride();
+	render.MaterialOverride();
 	render.SuppressEngineLighting( false );
 	
 	// render model
-	ent:SetModelScale( Vector() * 1 );
+	local mat = Matrix() -- todo: does this do what we want?
+	mat:Scale(Vector() * 1)
+	ent:EnableMatrix("RenderMultiply", mat)
 	ent:SetupBones();
 	ent:DrawModel();
 
@@ -508,7 +514,9 @@ function DrawModelOutlined( ent, width, width2 )
 	render.SetStencilReferenceValue( 1 );
 	
 		// render model
-		ent:SetModelScale( Vector() * 1 );
+		local mat = Matrix() -- todo: does this do what we want?
+		mat:Scale(Vector() * 1)
+		ent:EnableMatrix("RenderMultiply", mat)
 		ent:SetupBones();
 		ent:DrawModel();
 	
@@ -520,24 +528,28 @@ function DrawModelOutlined( ent, width, width2 )
 	
 	// render black model
 	render.SuppressEngineLighting( true );
-	SetMaterialOverride( BlackModel );
+	render.MaterialOverride( BlackModel );
 	
 		// render model
-		ent:SetModelScale( width );
+		local mat = Matrix() -- todo: does this do what we want?
+		mat:Scale(width)
+		ent:EnableMatrix("RenderMultiply", mat)
 		ent:SetupBones();
 		ent:DrawModel();
 		
 		// render second if needed
 		if ( width2 ) then
 		
-			ent:SetModelScale( width2 );
+			local mat = Matrix() -- todo: does this do what we want?
+			mat:Scale(width2)
+			ent:EnableMatrix("RenderMultiply", mat)
 			ent:SetupBones();
 			ent:DrawModel();
 		
 		end
 		
 	// clear
-	SetMaterialOverride();
+	render.MaterialOverride();
 	render.SuppressEngineLighting( false );
 	
 	// end stencil buffer

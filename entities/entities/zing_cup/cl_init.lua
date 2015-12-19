@@ -147,11 +147,11 @@ function ENT:Draw()
 	self:DrawModelOutlined( Vector( width, width, 1 ) );
 	
 	render.SuppressEngineLighting( true );
-	local r, g, b = self.RedFlag:GetColor();
-	render.SetColorModulation( r / 255, g / 255, b / 255 );
+	local rflagcol = self.RedFlag:GetColor();
+	render.SetColorModulation( rflagcol.r / 255, rflagcol.g / 255, rflagcol.b / 255 );
 	self.RedFlag:DrawModel();
-	local r, g, b = self.BlueFlag:GetColor();
-	render.SetColorModulation( r / 255, g / 255, b / 255 );
+	local bflagcol = self.BlueFlag:GetColor();
+	render.SetColorModulation( bflagcol.r / 255, bflagcol.g / 255, bflagcol.b / 255 );
 	self.BlueFlag:DrawModel();
 	render.SuppressEngineLighting( false );
 	

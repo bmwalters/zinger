@@ -1,6 +1,10 @@
 
 // derive from fretta
-DeriveGamemode( 'fretta' );
+DeriveGamemode( 'fretta13' );
+
+function zinger_loadmodule(name)
+	include("includes/modules/" .. name .. ".lua")
+end
 
 // include loader (which loads a bunch of stuff too)
 include( 'includes/sh_loader.lua' );

@@ -11,7 +11,9 @@ local MaterialComet = Material( "zinger/sky/comet" );
 // model we use to render the sky horizon
 local HorizonModel = ClientsideModel( "models/zinger/ball.mdl" );
 HorizonModel:SetNoDraw( true );
-HorizonModel:SetModelScale( Vector( -2500, -2500, -2500 ) );
+local mat = Matrix() -- todo: does this do what we want?
+mat:Scale(Vector(-2500, -2500, -2500))
+HorizonModel:EnableMatrix("RenderMultiply", mat)
 HorizonModel:SetupBones();
 
 // convars
@@ -519,11 +521,11 @@ function GM:PreDrawSkyBox()
 		// render the horizon
 		render.SuppressEngineLighting( true );
 		render.SetColorModulation( HorizonColor.r / 255, HorizonColor.g / 255, HorizonColor.b / 255 );
-		SetMaterialOverride( MaterialHorizon );
+		render.MaterialOverride( MaterialHorizon );
 				
 			HorizonModel:DrawModel();
 			
-		SetMaterialOverride();
+		render.MaterialOverride();
 		render.SetColorModulation( 1, 1, 1 );
 		render.SuppressEngineLighting( false );
 				
@@ -590,10 +592,10 @@ end
 /*------------------------------------
 	PlayNatureSound()
 ------------------------------------*/
-function GM:PlayNatureSound( sound )
+function GM:PlayNatureSound( snd )
 
 	// set the delay
-	NextSound = CurTime() + SoundDuration( sound ) + math.random( 2, 8 );
+	NextSound = CurTime() + SoundDuration( snd ) + math.random( 2, 8 );
 	
 	// allow them to disable
 	if( NatureSoundConVar:GetInt() < 1 ) then
@@ -606,7 +608,7 @@ function GM:PlayNatureSound( sound )
 	local pos = LocalPlayer():GetPos() + Vector( math.random( -20, 20 ), math.random( -20, 20 ), 0 );
 	
 	// play the sound
-	WorldSound( sound, pos, 75, math.random( 95, 105 ) );
+	sound.Play( snd, pos, 75, math.random( 95, 105 ) );
 	
 end
 

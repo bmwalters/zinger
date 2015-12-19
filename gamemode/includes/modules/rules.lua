@@ -22,6 +22,7 @@ end
 	Call()
 ------------------------------------*/
 function Call( name, ... )
+	local args = {...}
 
 	// make sure we've got our table
 	if ( !CurrentRule ) then
@@ -37,11 +38,11 @@ function Call( name, ... )
 		if ( SERVER ) then
 		
 			// pass every event to stats
-			stats.Call( name, unpack( arg ) );
+			stats.Call( name, unpack( args ) );
 			
 		end
 		
-		return CurrentRule[ name ]( CurrentRule, unpack( arg ) );
+		return CurrentRule[ name ]( CurrentRule, unpack( args ) );
 	
 	end
 	
@@ -70,7 +71,7 @@ include( ("%sbase.lua"):format( PATH_RULES ) );
 LL( PATH_RULES, nil, "base.lua", function( f, p )
 
 	// extract name
-	local _, _, key = string.find( f, "([%w_]*)\.lua" );
+	local _, _, key = string.find( f, "([%w_]*)%.lua" );
 	
 	// create base
 	RULE = CreateRule();

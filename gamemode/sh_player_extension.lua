@@ -141,7 +141,7 @@ function meta:UpdateAimVector()
 	if ( !cmd:KeyDown( IN_CANCEL ) && IsBall( camera ) ) then
 		
 		// trace players view
-		self:SetFOV( 80 );
+		self:SetFOV( 80, 0 );
 		local trace = {};
 		trace.start = pos;
 		trace.endpos = pos + ( self:GetCursorVector() * 4096 );

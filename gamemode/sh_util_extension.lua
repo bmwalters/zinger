@@ -89,7 +89,7 @@ end
 ------------------------------------*/
 function IsOOB( tr )
 
-	return ( tr.MatType == MAT_SLOSH || ( util.PointContents( tr.HitPos ) & CONTENTS_WATER ) == CONTENTS_WATER || tr.HitSky );
+	return ( tr.MatType == MAT_SLOSH || bit.band( util.PointContents( tr.HitPos ), CONTENTS_WATER ) == CONTENTS_WATER || tr.HitSky );
 
 end
 
@@ -126,7 +126,7 @@ function dprint( ... )
 		
 	end
 	
-	local s = "~ " .. table.concat( arg, "\t" );
+	local s = "~ " .. table.concat( {...}, "\t" );
 	MsgN( s );
 	
 end

@@ -93,8 +93,8 @@ function Update( pl )
 		local normal = Vector( 0, 0, 1 );
 		local distance = normal:Dot( camera:GetPos() );
 		local pickingPos = CurrentView.origin;
-		pl:SetFOV( CurrentView.fov );
-		local pickingRay = pl:GetCursorAimVector();
+		pl:SetFOV( CurrentView.fov, 0 );
+		local pickingRay = pl:GetAimVector();
 		
 		// intersect picking ray with the ball hit plane
 		local denom = normal:Dot( pickingRay );
@@ -364,8 +364,8 @@ function GetCursorDirection()
 	if( IsValid( pl ) ) then
 	
 		// hack to make sure that the trace is accurate.
-		pl:SetFOV( CurrentView.fov );
-		return pl:GetCursorAimVector();
+		pl:SetFOV( CurrentView.fov, 0 );
+		return pl:GetAimVector();
 		
 	end
 	

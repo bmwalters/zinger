@@ -5,7 +5,7 @@
 function EFFECT:Init( data )
 
 	local pos = data:GetOrigin();
-	local water = ( util.PointContents( pos ) & CONTENTS_WATER ) == CONTENTS_WATER;
+	local water = bit.band( util.PointContents( pos ), CONTENTS_WATER ) == CONTENTS_WATER;
 
 	// particles
 	ParticleEffect( water && "Zinger.WaterExplosion" || "Zinger.Explosion", pos, angle_zero, Entity( 0 ) );
@@ -22,8 +22,8 @@ function EFFECT:Init( data )
 	light.DieTime = CurTime() + 3;
 	
 	// sound
-	//WorldSound( "BaseExplosionEffect.Sound", pos, 100, 100 );
-	WorldSound( Sound( water && "WaterExplosionEffect.Sound" || "zinger/kablamos.mp3" ), pos, 100, 100 );
+	//sound.Play( "BaseExplosionEffect.Sound", pos, 100, 100 );
+	sound.Play( Sound( water && "WaterExplosionEffect.Sound" || "zinger/kablamos.mp3" ), pos, 100, 100 );
 
 end
 

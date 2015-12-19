@@ -58,7 +58,7 @@ function ENT:Think( pl, ball )
 	// gibs
 	local effect = EffectData();
 	effect:SetOrigin( self:GetPos() );
-	effect:SetAngle( self:GetAngles() );
+	effect:SetAngles( self:GetAngles() );
 	util.Effect( "Zinger.CrateBreak", effect );
 	
 	SafeRemoveEntity( self );
@@ -84,11 +84,11 @@ function ENT:DoPickup( pl, ball )
 	// gibs
 	local effect = EffectData();
 	effect:SetOrigin( self:GetPos() );
-	effect:SetAngle( self:GetAngles() );
+	effect:SetAngles( self:GetAngles() );
 	util.Effect( "Zinger.CrateBreak", effect );
 
 	// sound
-	WorldSound( Sound( "physics/wood/wood_box_impact_bullet1.wav" ), self:GetPos(), 100, 100 );
+	sound.Play( Sound( "physics/wood/wood_box_impact_bullet1.wav" ), self:GetPos(), 100, 100 );
 	
 	// particle effect
 	ParticleEffect( "Zinger.CratePickup", self:GetPos(), angle_zero, ent );
@@ -141,7 +141,7 @@ function ENT:PhysicsCollide( data, physobj )
 			// gibs
 			local effect = EffectData();
 			effect:SetOrigin( self:GetPos() );
-			effect:SetAngle( self:GetAngles() );
+			effect:SetAngles( self:GetAngles() );
 			util.Effect( "Zinger.CrateBreak", effect );
 			
 			SafeRemoveEntityDelayed( self, 0 );

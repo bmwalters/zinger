@@ -138,14 +138,14 @@ function PANEL:Paint()
 	
 		if ( self:GetOutline() > 0 ) then
 		
-			SetMaterialOverride( BlackModelSimple );
+			render.MaterialOverride( BlackModelSimple );
 			
 			self.Entity:SetModelScale( Vector() * self:GetOutline() );
 			self.Entity:SetupBones();
 			self.Entity:DrawModel();
 			
 			// reset everything
-			SetMaterialOverride();
+			render.MaterialOverride();
 			self.Entity:SetModelScale( Vector() * 1 );
 			self.Entity:SetupBones();
 			

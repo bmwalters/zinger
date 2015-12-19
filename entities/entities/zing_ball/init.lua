@@ -157,7 +157,7 @@ function ENT:PhysicsCollide( data, physobj )
 		ParticleEffect( "Zinger.BallImpact", data.HitPos, angle_zero, self.Entity );
 		
 		// play the sound where the collision happened, not just on the ball!
-		WorldSound( table.Random( BounceSounds ), data.HitPos, 75, 100 );
+		sound.Play( table.Random( BounceSounds ), data.HitPos, 75, 100 );
 		
 	elseif ( !hitWorld ) then
 	
@@ -167,7 +167,7 @@ function ENT:PhysicsCollide( data, physobj )
 			bounce = true;
 			
 			// collision sound
-			WorldSound( table.Random( CollideSounds ), data.HitPos, 75, 100 );
+			sound.Play( table.Random( CollideSounds ), data.HitPos, 75, 100 );
 			
 			// call event
 			GAMEMODE:BallHitBall( self, data.HitEntity );
@@ -178,7 +178,7 @@ function ENT:PhysicsCollide( data, physobj )
 			ParticleEffect( "Zinger.BallImpact", data.HitPos, angle_zero, self.Entity );
 			
 			// play the sound where the collision happened, not just on the ball!
-			WorldSound( table.Random( BounceSounds ), data.HitPos, 75, 100 );
+			sound.Play( table.Random( BounceSounds ), data.HitPos, 75, 100 );
 		
 		end
 	
@@ -241,7 +241,7 @@ function ENT:Hit( dir, power )
 	local sounds = ( power > 40 ) && DriveSounds || PuttSounds;
 	
 	// play sound
-	WorldSound( table.Random( sounds ), phys:GetPos(), 75, 100 );
+	sound.Play( table.Random( sounds ), phys:GetPos(), 75, 100 );
 	
 	// particle effect on drive
 	ParticleEffect( "Zinger.BallDrive", self:GetPos(), dir:Angle(), self.Entity );

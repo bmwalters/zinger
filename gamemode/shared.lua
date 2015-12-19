@@ -17,7 +17,7 @@ GM.SelectColor						= false;
 GM.GameLength						= GAME_LENGTH;
 
 // modules
-require( "rules" );
+zinger_loadmodule( "rules" );
 
 // variables
 local LastMouseX = 0;
@@ -351,7 +351,7 @@ function GM:Think()
 		controls.Update( pl );
 		
 		// ensure the aim vector is set on the client
-		if( SinglePlayer() ) then
+		if( game.SinglePlayer() ) then
 		
 			pl:UpdateAimVector();
 		

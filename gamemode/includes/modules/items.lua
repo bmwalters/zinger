@@ -21,7 +21,7 @@ LL( PATH_ITEMS, "*.lua", nil, function( f, p )
 		
 	end
 	
-	local _, _, key = string.find( f, "([%w_]*)\.lua" );
+	local _, _, key = string.find( f, "([%w_]*)%.lua" );
 
 	ITEM = CreateItem( key );
 		

@@ -87,7 +87,7 @@ function ITEM:Activate()
 			SafeRemoveEntityDelayed( arrow, 10 );
 		
 			// sound
-			WorldSound( "zinger/items/darthit.mp3", tr.HitPos, 80, 120 );
+			sound.Play( "zinger/items/darthit.mp3", tr.HitPos, 80, 120 );
 
 		end );
 		

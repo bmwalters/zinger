@@ -18,7 +18,7 @@ function EFFECT:Init( data )
 	ParticleEffect( "Zinger.WaterSplash", pos, angle_zero, Entity( 0 ) );
 	
 	// sound
-	WorldSound( SplashSounds[ math.random( 1, #SplashSounds ) ], pos, 100, 100 );
+	sound.Play( SplashSounds[ math.random( 1, #SplashSounds ) ], pos, 100, 100 );
 
 end
 

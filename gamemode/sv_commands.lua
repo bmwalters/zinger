@@ -302,7 +302,7 @@ local function SprayCommand( pl, cmd, args )
 			pl.NextSprayTime = CurTime() + GetConVarNumber( "decalfrequency" );
 			
 			// sound
-			WorldSound( Sound( "SprayCan.Paint" ), ball:GetPos(), 100, 100 );
+			sound.Play( Sound( "SprayCan.Paint" ), ball:GetPos(), 100, 100 );
 			
 			// decal
 			pl:SprayDecal( tr.HitPos + tr.HitNormal, tr.HitPos - tr.HitNormal );

@@ -44,7 +44,7 @@ function Call( name, ... )
 	
 		dprint( "Stat Event", name );
 	
-		StatHandlers[ name ]( unpack( arg ) );
+		StatHandlers[ name ]( unpack( {...} ) );
 	
 	end
 	
