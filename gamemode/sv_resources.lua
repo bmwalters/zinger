@@ -1,13 +1,12 @@
-local AddDir
-function AddDir(dir)
+local function AddDir(dir)
 	local files, folders = file.Find(dir .. "/*", "GAME")
 
-	for k,v in pairs(files) do
-		resource.AddFile(dir.."/"..v)
+	for _, fname in pairs(files) do
+		resource.AddFile(dir .. "/" .. fname)
 	end
 
-	for _, fdir in pairs(folders) do
-		AddDir(dir.."/"..fdir)
+	for _, dir2 in pairs(folders) do
+		AddDir(dir .. "/" .. dir2)
 	end
 end
 
